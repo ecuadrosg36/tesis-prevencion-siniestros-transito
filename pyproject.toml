@@ -1,0 +1,19 @@
+[project]
+name = "tesis-prevencion-siniestros-transito"
+version = "0.1.0"
+description = "Proyecto TESIS: Normalización de siniestros de tránsito en una sola tabla (Perú 2008-2023)"
+authors = [{name = "tesis-prevencion-siniestros-transito"}]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "pandas>=2.2.2",
+    "openpyxl>=3.1.2",
+    "pyarrow>=17.0.0",
+]
+
+[project.scripts]
+tpst-normalizar = "tesis_prevencion_siniestros_transito.normalize:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
