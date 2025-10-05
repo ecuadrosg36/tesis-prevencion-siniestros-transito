@@ -1,0 +1,372 @@
+{
+  "checks": [
+    {
+      "name": "long.columns_present",
+      "status": "PASS",
+      "critical": true,
+      "details": {
+        "missing": []
+      }
+    },
+    {
+      "name": "long.types_basic",
+      "status": "PASS",
+      "critical": true,
+      "details": {
+        "issues": {}
+      }
+    },
+    {
+      "name": "long.no_nulls_crit",
+      "status": "PASS",
+      "critical": true,
+      "details": {
+        "sample": []
+      }
+    },
+    {
+      "name": "long.year_range_reasonable",
+      "status": "PASS",
+      "critical": false,
+      "details": {
+        "observed": {
+          "min": 2007,
+          "max": 2023
+        }
+      }
+    },
+    {
+      "name": "long.region_not_month_or_total",
+      "status": "PASS",
+      "critical": true,
+      "details": {
+        "sample": []
+      }
+    },
+    {
+      "name": "long.value_non_negative",
+      "status": "PASS",
+      "critical": true,
+      "details": {
+        "sample": []
+      }
+    },
+    {
+      "name": "long.duplicate_exact_rows",
+      "status": "PASS",
+      "critical": false,
+      "details": {
+        "sample": []
+      }
+    },
+    {
+      "name": "wide.columns_key_present",
+      "status": "PASS",
+      "critical": true,
+      "details": {
+        "missing": []
+      }
+    },
+    {
+      "name": "wide.key_unique",
+      "status": "PASS",
+      "critical": true,
+      "details": {
+        "sample": []
+      }
+    },
+    {
+      "name": "wide.metrics_non_negative",
+      "status": "PASS",
+      "critical": true,
+      "details": {}
+    },
+    {
+      "name": "wide.total_consistency_franja_dia",
+      "status": "FAIL",
+      "critical": false,
+      "details": {
+        "franjas_bad_rows": 111,
+        "franjas_bad_sample": [
+          {
+            "year": 2021,
+            "region": "CUSCO",
+            "sum_franjas": 2773.0,
+            "siniestros_total__total": 2996.0,
+            "rel_err": 0.07443257676902537
+          },
+          {
+            "year": 2018,
+            "region": "HUANCAVELICA",
+            "sum_franjas": 257.0,
+            "siniestros_total__total": 4010.0,
+            "rel_err": 0.9359102244389027
+          },
+          {
+            "year": 2008,
+            "region": "JUNIN",
+            "sum_franjas": 1819.0,
+            "siniestros_total__total": 1889.0,
+            "rel_err": 0.037056643726839596
+          },
+          {
+            "year": 2021,
+            "region": "LIMA",
+            "sum_franjas": 2542.0,
+            "siniestros_total__total": 35848.0,
+            "rel_err": 0.9290894889533586
+          },
+          {
+            "year": 2021,
+            "region": "CALLAO",
+            "sum_franjas": 35848.0,
+            "siniestros_total__total": 2773.0,
+            "rel_err": 11.927515326361341
+          },
+          {
+            "year": 2008,
+            "region": "ANCASH",
+            "sum_franjas": 2263.0,
+            "siniestros_total__total": 1616.0,
+            "rel_err": 0.4003712871287129
+          },
+          {
+            "year": 2009,
+            "region": "LA LIBERTAD",
+            "sum_franjas": 4020.0,
+            "siniestros_total__total": 3625.0,
+            "rel_err": 0.10896551724137932
+          },
+          {
+            "year": 2013,
+            "region": "TOTAL ANUAL",
+            "sum_franjas": 102762.0,
+            "siniestros_total__total": 0.0,
+            "rel_err": null
+          },
+          {
+            "year": 2017,
+            "region": "TOTAL ANUAL",
+            "sum_franjas": 88168.0,
+            "siniestros_total__total": 0.0,
+            "rel_err": null
+          },
+          {
+            "year": 2019,
+            "region": "SETIEMBRE",
+            "sum_franjas": 0.0,
+            "siniestros_total__total": 0.0,
+            "rel_err": null
+          }
+        ],
+        "dias_bad_rows": 61,
+        "dias_bad_sample": [
+          {
+            "year": 2018,
+            "region": "HUANCAVELICA",
+            "sum_dias": 257.0,
+            "siniestros_total__total": 4010.0,
+            "rel_err": 0.9359102244389027
+          },
+          {
+            "year": 2013,
+            "region": "TOTAL ANUAL",
+            "sum_dias": 102762.0,
+            "siniestros_total__total": 0.0,
+            "rel_err": null
+          },
+          {
+            "year": 2017,
+            "region": "TOTAL ANUAL",
+            "sum_dias": 88168.0,
+            "siniestros_total__total": 0.0,
+            "rel_err": null
+          },
+          {
+            "year": 2019,
+            "region": "SETIEMBRE",
+            "sum_dias": 0.0,
+            "siniestros_total__total": 0.0,
+            "rel_err": null
+          },
+          {
+            "year": 2015,
+            "region": "TOTAL SINIESTROS DE TRÁNSITO",
+            "sum_dias": 0.0,
+            "siniestros_total__total": 95532.0,
+            "rel_err": 1.0
+          },
+          {
+            "year": 2018,
+            "region": "JUNIN",
+            "sum_dias": 2429.0,
+            "siniestros_total__total": 1303.0,
+            "rel_err": 0.86415963161934
+          },
+          {
+            "year": 2022,
+            "region": "TOTAL SINIESTROS DE TRÁNSITO",
+            "sum_dias": 0.0,
+            "siniestros_total__total": 83897.0,
+            "rel_err": 1.0
+          },
+          {
+            "year": 2018,
+            "region": "TOTAL SINIESTROS DE TRÁNSITO",
+            "sum_dias": 0.0,
+            "siniestros_total__total": 90056.0,
+            "rel_err": 1.0
+          },
+          {
+            "year": 2017,
+            "region": "SETIEMBRE",
+            "sum_dias": 0.0,
+            "siniestros_total__total": 0.0,
+            "rel_err": null
+          },
+          {
+            "year": 2022,
+            "region": "SETIEMBRE",
+            "sum_dias": 0.0,
+            "siniestros_total__total": 0.0,
+            "rel_err": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "feat.key_unique",
+      "status": "PASS",
+      "critical": true,
+      "details": {
+        "sample": []
+      }
+    },
+    {
+      "name": "feat.proportions_in_0_1",
+      "status": "FAIL",
+      "critical": false,
+      "details": {
+        "sample": [
+          {
+            "year": 2021,
+            "region": "CALLAO",
+            "prop__siniestros_por_franja_horaria__00_01_a_02_00": 0.4114677244861161,
+            "prop__siniestros_por_franja_horaria__02_00_a_08_00": 0.0,
+            "prop__siniestros_por_franja_horaria__02_01_a_04_00": 0.289578074287775,
+            "prop__siniestros_por_franja_horaria__04_01_a_06_00": 0.5254237288135594,
+            "prop__siniestros_por_franja_horaria__06_01_a_08_00": 1.0497655968265416,
+            "prop__siniestros_por_franja_horaria__08_00_a_14_00": 0.0,
+            "prop__siniestros_por_franja_horaria__08_01_a_10_00": 1.422286332491886,
+            "prop__siniestros_por_franja_horaria__10_01_a_12_00": 1.304363505228994,
+            "prop__siniestros_por_franja_horaria__12_01_a_14_00": 1.42445005409304,
+            "prop__siniestros_por_franja_horaria__14_00_a_20_00": 0.0,
+            "prop__siniestros_por_franja_horaria__14_01_a_16_00": 1.3699963937973314,
+            "prop__siniestros_por_franja_horaria__16_01_a_18_00": 1.5023440317345835,
+            "prop__siniestros_por_franja_horaria__18_01_a_20_00": 1.5856473133790119,
+            "prop__siniestros_por_franja_horaria__20_00_a_02_00": 0.0,
+            "prop__siniestros_por_franja_horaria__20_01_a_22_00": 1.303281644428417,
+            "prop__siniestros_por_franja_horaria__22_01_a_24_00": 0.7389109267940859,
+            "prop__siniestros_por_dia__domingo": 0.10349801658853228,
+            "prop__siniestros_por_dia__jueves": 0.14713306887847097,
+            "prop__siniestros_por_dia__lunes": 0.14929679047962496,
+            "prop__siniestros_por_dia__martes": 0.11864406779661017,
+            "prop__siniestros_por_dia__miercoles": 0.14100252434186802,
+            "prop__siniestros_por_dia__sabado": 0.18535881716552471,
+            "prop__siniestros_por_dia__viernes": 0.15506671474936892
+          },
+          {
+            "year": 2021,
+            "region": "HUANCAVELICA",
+            "prop__siniestros_por_franja_horaria__00_01_a_02_00": 0.39669421487603307,
+            "prop__siniestros_por_franja_horaria__02_00_a_08_00": 0.0,
+            "prop__siniestros_por_franja_horaria__02_01_a_04_00": 0.26859504132231404,
+            "prop__siniestros_por_franja_horaria__04_01_a_06_00": 0.7396694214876033,
+            "prop__siniestros_por_franja_horaria__06_01_a_08_00": 0.9462809917355371,
+            "prop__siniestros_por_franja_horaria__08_00_a_14_00": 0.0,
+            "prop__siniestros_por_franja_horaria__08_01_a_10_00": 1.140495867768595,
+            "prop__siniestros_por_franja_horaria__10_01_a_12_00": 1.2231404958677685,
+            "prop__siniestros_por_franja_horaria__12_01_a_14_00": 1.1198347107438016,
+            "prop__siniestros_por_franja_horaria__14_00_a_20_00": 0.0,
+            "prop__siniestros_por_franja_horaria__14_01_a_16_00": 1.2272727272727273,
+            "prop__siniestros_por_franja_horaria__16_01_a_18_00": 1.8264462809917354,
+            "prop__siniestros_por_franja_horaria__18_01_a_20_00": 1.5661157024793388,
+            "prop__siniestros_por_franja_horaria__20_00_a_02_00": 0.0,
+            "prop__siniestros_por_franja_horaria__20_01_a_22_00": 1.2520661157024793,
+            "prop__siniestros_por_franja_horaria__22_01_a_24_00": 0.6735537190082644,
+            "prop__siniestros_por_dia__domingo": 0.1446280991735537,
+            "prop__siniestros_por_dia__jueves": 0.16115702479338842,
+            "prop__siniestros_por_dia__lunes": 0.1115702479338843,
+            "prop__siniestros_por_dia__martes": 0.14049586776859505,
+            "prop__siniestros_por_dia__miercoles": 0.14049586776859505,
+            "prop__siniestros_por_dia__sabado": 0.1487603305785124,
+            "prop__siniestros_por_dia__viernes": 0.15289256198347106
+          },
+          {
+            "year": 2018,
+            "region": "LIMA",
+            "prop__siniestros_por_franja_horaria__00_01_a_02_00": 0.728904282115869,
+            "prop__siniestros_por_franja_horaria__02_00_a_08_00": 0.0,
+            "prop__siniestros_por_franja_horaria__02_01_a_04_00": 0.5576196473551638,
+            "prop__siniestros_por_franja_horaria__04_01_a_06_00": 0.7119017632241813,
+            "prop__siniestros_por_franja_horaria__06_01_a_08_00": 1.390743073047859,
+            "prop__siniestros_por_franja_horaria__08_00_a_14_00": 0.0,
+            "prop__siniestros_por_franja_horaria__08_01_a_10_00": 1.6205919395465995,
+            "prop__siniestros_por_franja_horaria__10_01_a_12_00": 1.4178211586901763,
+            "prop__siniestros_por_franja_horaria__12_01_a_14_00": 1.399874055415617,
+            "prop__siniestros_por_franja_horaria__14_00_a_20_00": 0.0,
+            "prop__siniestros_por_franja_horaria__14_01_a_16_00": 1.4763853904282116,
+            "prop__siniestros_por_franja_horaria__16_01_a_18_00": 1.6627833753148615,
+            "prop__siniestros_por_franja_horaria__18_01_a_20_00": 1.7688916876574308,
+            "prop__siniestros_por_franja_horaria__20_00_a_02_00": 0.0,
+            "prop__siniestros_por_franja_horaria__20_01_a_22_00": 1.692065491183879,
+            "prop__siniestros_por_franja_horaria__22_01_a_24_00": 1.1064231738035264,
+            "prop__siniestros_por_dia__domingo": 1.9600125944584383,
+            "prop__siniestros_por_dia__jueves": 2.0100755667506296,
+            "prop__siniestros_por_dia__lunes": 2.2267002518891688,
+            "prop__siniestros_por_dia__martes": 1.8973551637279598,
+            "prop__siniestros_por_dia__miercoles": 2.0897355163727958,
+            "prop__siniestros_por_dia__sabado": 2.8139168765743072,
+            "prop__siniestros_por_dia__viernes": 2.5362090680100757
+          },
+          {
+            "year": 2008,
+            "region": "TACNA",
+            "prop__siniestros_por_franja_horaria__00_01_a_02_00": 0.0,
+            "prop__siniestros_por_franja_horaria__02_00_a_08_00": 0.720164609053498,
+            "prop__siniestros_por_franja_horaria__02_01_a_04_00": 0.0,
+            "prop__siniestros_por_franja_horaria__04_01_a_06_00": 0.0,
+            "prop__siniestros_por_franja_horaria__06_01_a_08_00": 0.0,
+            "prop__siniestros_por_franja_horaria__08_00_a_14_00": 1.0411522633744856,
+            "prop__siniestros_por_franja_horaria__08_01_a_10_00": 0.0,
+            "prop__siniestros_por_franja_horaria__10_01_a_12_00": 0.0,
+            "prop__siniestros_por_franja_horaria__12_01_a_14_00": 0.0,
+            "prop__siniestros_por_franja_horaria__14_00_a_20_00": 1.1563786008230452,
+            "prop__siniestros_por_franja_horaria__14_01_a_16_00": 0.0,
+            "prop__siniestros_por_franja_horaria__16_01_a_18_00": 0.0,
+            "prop__siniestros_por_franja_horaria__18_01_a_20_00": 0.0,
+            "prop__siniestros_por_franja_horaria__20_00_a_02_00": 1.3497942386831276,
+            "prop__siniestros_por_franja_horaria__20_01_a_22_00": 0.0,
+            "prop__siniestros_por_franja_horaria__22_01_a_24_00": 0.0,
+            "prop__siniestros_por_dia__domingo": 0.12757201646090535,
+            "prop__siniestros_por_dia__jueves": 0.12345679012345678,
+            "prop__siniestros_por_dia__lunes": 0.11934156378600823,
+            "prop__siniestros_por_dia__martes": 0.12345679012345678,
+            "prop__siniestros_por_dia__miercoles": 0.1728395061728395,
+            "prop__siniestros_por_dia__sabado": 0.16872427983539096,
+            "prop__siniestros_por_dia__viernes": 0.1646090534979424
+          }
+        ]
+      }
+    },
+    {
+      "name": "feat.growth_finite",
+      "status": "PASS",
+      "critical": false,
+      "details": {
+        "sample": []
+      }
+    }
+  ],
+  "has_critical_fail": false
+}
