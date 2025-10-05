@@ -7,9 +7,9 @@ Pipeline para normalizar siniestros de tránsito (Perú 2008–2023) en una sola
 ```bash
 python -m venv .venv
 # Linux/Mac
-#source .venv/bin/activate
-# Windows PowerShell
- .\.venv\Scripts\Activate.ps1
+source .venv/bin/activate
+#Windows PowerShell
+# .\.venv\Scripts\Activate.ps1
 
 pip install -U pip
 pip install -r requirements.txt

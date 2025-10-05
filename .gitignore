@@ -1,18 +1,66 @@
+# --- Python común ---
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+build/
+dist/
+
+# Entornos virtuales
 .venv/
 venv/
 env/
-build/
-dist/
-*.egg-info/
-.ipynb_checkpoints/
-.DS_Store
-Thumbs.db
-data/raw/*
-!data/raw/.gitkeep
-data/processed/*
-!data/processed/.gitkeep
+.conda/
+.python-version
+
+# IDE / sistema
 .vscode/
 .idea/
+.DS_Store
+Thumbs.db
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Herramientas de análisis/tests
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+pytestdebug.log
+
+# Logs genéricos
+*.log
+
+# --- Datos del proyecto ---
+# Mantén solo los .gitkeep, no subas datasets ni artefactos locales
+data/raw/*
+!data/raw/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+# Carpeta de trabajo local (notebook PySpark on-prem)
+bronze_local/
+silver_local/
+gold_local/
+
+# Si alguna vez generas Delta/Metastore locales con Spark
+metastore_db/
+derby.log
+.sparkStaging/
+
+# (Opcional) grandes binarios en raíz 
+*.parquet
+*.orc
+*.feather
+*.arrow
+*.csv
+*.tsv
+*.xlsx
+*.xls

@@ -1,0 +1,5 @@
+-r requirements.txt
+pyspark==3.5.1
+# Para minimizar incompatibilidades con Spark en conversions Arrow:
+pandas==2.2.2
+pyarrow==15.0.2
