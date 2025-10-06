@@ -1,0 +1,33 @@
+{
+  "data_quality": {
+    "total_regions": 28,
+    "years_covered": 17,
+    "records_processed": 447,
+    "records_in_model": 405,
+    "train_size": 351,
+    "test_size": 54
+  },
+  "model_performance": {
+    "Poisson_GLM": {
+      "RMSE": 57338.315809305495,
+      "MAE": 12863.290534979178
+    },
+    "Random_Forest": {
+      "RMSE": 1694.8329156715618,
+      "MAE": 622.5914413789142
+    },
+    "GBT_LogTarget": {
+      "RMSE": 6782.239101595804,
+      "MAE": 2088.422513952165
+    },
+    "Separate_Lima_Model": {
+      "RMSE": 2102.1187043471564,
+      "MAE": 467.9054479614845
+    }
+  },
+  "best_model": {
+    "name": "Random_Forest",
+    "rmse": 1694.8329156715618,
+    "mae": 622.5914413789142
+  }
+}

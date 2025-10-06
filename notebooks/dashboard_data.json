@@ -1,0 +1,809 @@
+{
+  "predictions": [
+    {
+      "year": 2022,
+      "region": "AMAZONAS",
+      "actual": 514.0,
+      "predicted": 548.8980424624393,
+      "abs_error": 34.89804246243932,
+      "rel_error": 0.0678950242459908,
+      "error_pct": 6.789502424599079
+    },
+    {
+      "year": 2022,
+      "region": "ANCASH",
+      "actual": 2453.0,
+      "predicted": 2531.3468214285713,
+      "abs_error": 78.34682142857127,
+      "rel_error": 0.0319391852542076,
+      "error_pct": 3.1939185254207603
+    },
+    {
+      "year": 2022,
+      "region": "APURIMAC",
+      "actual": 860.0,
+      "predicted": 825.5018888888887,
+      "abs_error": 34.49811111111126,
+      "rel_error": 0.0401140826873386,
+      "error_pct": 4.0114082687338595
+    },
+    {
+      "year": 2022,
+      "region": "AREQUIPA",
+      "actual": 5017.0,
+      "predicted": 6581.105936507935,
+      "abs_error": 1564.1059365079354,
+      "rel_error": 0.3117611992242247,
+      "error_pct": 31.17611992242247
+    },
+    {
+      "year": 2022,
+      "region": "AYACUCHO",
+      "actual": 454.0,
+      "predicted": 470.5688944186355,
+      "abs_error": 16.568894418635523,
+      "rel_error": 0.0364953621555848,
+      "error_pct": 3.64953621555848
+    },
+    {
+      "year": 2022,
+      "region": "CAJAMARCA",
+      "actual": 2108.0,
+      "predicted": 2813.9538690476184,
+      "abs_error": 705.9538690476184,
+      "rel_error": 0.3348927272521909,
+      "error_pct": 33.48927272521909
+    },
+    {
+      "year": 2022,
+      "region": "CALLAO",
+      "actual": 2723.0,
+      "predicted": 2749.0151785714297,
+      "abs_error": 26.015178571429715,
+      "rel_error": 0.0095538665337604,
+      "error_pct": 0.95538665337604
+    },
+    {
+      "year": 2022,
+      "region": "CUSCO",
+      "actual": 3365.0,
+      "predicted": 3323.081138888889,
+      "abs_error": 41.9188611111108,
+      "rel_error": 0.0124573138517416,
+      "error_pct": 1.24573138517416
+    },
+    {
+      "year": 2022,
+      "region": "HUANCAVELICA",
+      "actual": 200.0,
+      "predicted": 180.4279484126984,
+      "abs_error": 19.572051587301587,
+      "rel_error": 0.0978602579365079,
+      "error_pct": 9.78602579365079
+    },
+    {
+      "year": 2022,
+      "region": "HU\u00c1NUCO",
+      "actual": 1260.0,
+      "predicted": 1243.523313006437,
+      "abs_error": 16.47668699356268,
+      "rel_error": 0.0130767357091767,
+      "error_pct": 1.3076735709176701
+    },
+    {
+      "year": 2022,
+      "region": "ICA",
+      "actual": 2154.0,
+      "predicted": 2365.841111111111,
+      "abs_error": 211.84111111111088,
+      "rel_error": 0.0983477767461053,
+      "error_pct": 9.83477767461053
+    },
+    {
+      "year": 2022,
+      "region": "JUNIN",
+      "actual": 3664.0,
+      "predicted": 3984.279892857143,
+      "abs_error": 320.27989285714284,
+      "rel_error": 0.0874126345134123,
+      "error_pct": 8.74126345134123
+    },
+    {
+      "year": 2022,
+      "region": "LA LIBERTAD",
+      "actual": 4450.0,
+      "predicted": 4279.892115079367,
+      "abs_error": 170.1078849206333,
+      "rel_error": 0.0382264909934007,
+      "error_pct": 3.8226490993400697
+    },
+    {
+      "year": 2022,
+      "region": "LAMBAYEQUE",
+      "actual": 3137.0,
+      "predicted": 3264.132630952382,
+      "abs_error": 127.132630952382,
+      "rel_error": 0.040526818920109,
+      "error_pct": 4.0526818920109005
+    },
+    {
+      "year": 2022,
+      "region": "LIMA",
+      "actual": 41111.0,
+      "predicted": 34597.46717460318,
+      "abs_error": 6513.532825396818,
+      "rel_error": 0.1584377131521203,
+      "error_pct": 15.84377131521203
+    },
+    {
+      "year": 2022,
+      "region": "LORETO",
+      "actual": 166.0,
+      "predicted": 185.20436507936503,
+      "abs_error": 19.20436507936506,
+      "rel_error": 0.1156889462612353,
+      "error_pct": 11.56889462612353
+    },
+    {
+      "year": 2022,
+      "region": "MADRE DE DIOS",
+      "actual": 742.0,
+      "predicted": 733.4284407308376,
+      "abs_error": 8.571559269162435,
+      "rel_error": 0.0115519666700302,
+      "error_pct": 1.15519666700302
+    },
+    {
+      "year": 2022,
+      "region": "MOQUEGUA",
+      "actual": 657.0,
+      "predicted": 670.9360921052631,
+      "abs_error": 13.936092105263128,
+      "rel_error": 0.0212117079227749,
+      "error_pct": 2.12117079227749
+    },
+    {
+      "year": 2022,
+      "region": "PASCO",
+      "actual": 327.0,
+      "predicted": 335.8420920378903,
+      "abs_error": 8.842092037890325,
+      "rel_error": 0.0270400368131202,
+      "error_pct": 2.70400368131202
+    },
+    {
+      "year": 2022,
+      "region": "PIURA",
+      "actual": 3947.0,
+      "predicted": 5689.185317460318,
+      "abs_error": 1742.1853174603184,
+      "rel_error": 0.4413948106056038,
+      "error_pct": 44.139481060560385
+    },
+    {
+      "year": 2022,
+      "region": "PUNO",
+      "actual": 1484.0,
+      "predicted": 1553.6675674603175,
+      "abs_error": 69.66756746031774,
+      "rel_error": 0.0469458001754162,
+      "error_pct": 4.69458001754162
+    },
+    {
+      "year": 2022,
+      "region": "SAN MART\u00cdN",
+      "actual": 1279.0,
+      "predicted": 1247.159399267399,
+      "abs_error": 31.840600732600933,
+      "rel_error": 0.0248949184774049,
+      "error_pct": 2.48949184774049
+    },
+    {
+      "year": 2022,
+      "region": "TACNA",
+      "actual": 947.0,
+      "predicted": 1012.5372709235204,
+      "abs_error": 65.53727092352051,
+      "rel_error": 0.0692051435306446,
+      "error_pct": 6.920514353064459
+    },
+    {
+      "year": 2022,
+      "region": "TOTAL ANUAL",
+      "actual": 83897.0,
+      "predicted": 85631.24974603178,
+      "abs_error": 1734.2497460317827,
+      "rel_error": 0.0206711771104066,
+      "error_pct": 2.0671177110406598
+    },
+    {
+      "year": 2022,
+      "region": "TOTAL SINIESTROS DE TR\u00c1NSITO",
+      "actual": 83897.0,
+      "predicted": 84284.74575409242,
+      "abs_error": 387.7457540924224,
+      "rel_error": 0.004621687951803,
+      "error_pct": 0.4621687951803
+    },
+    {
+      "year": 2022,
+      "region": "TUMBES",
+      "actual": 366.0,
+      "predicted": 380.95286690188897,
+      "abs_error": 14.952866901888967,
+      "rel_error": 0.0408548276007895,
+      "error_pct": 4.08548276007895
+    },
+    {
+      "year": 2022,
+      "region": "UCAYALI",
+      "actual": 512.0,
+      "predicted": 546.7205250305248,
+      "abs_error": 34.720525030524755,
+      "rel_error": 0.0678135254502436,
+      "error_pct": 6.781352545024361
+    },
+    {
+      "year": 2023,
+      "region": "AMAZONAS",
+      "actual": 514.0,
+      "predicted": 490.1946952641551,
+      "abs_error": 23.805304735844913,
+      "rel_error": 0.046313822443278,
+      "error_pct": 4.6313822443278
+    },
+    {
+      "year": 2023,
+      "region": "ANCASH",
+      "actual": 2557.0,
+      "predicted": 2559.7692420634926,
+      "abs_error": 2.769242063492584,
+      "rel_error": 0.0010830043267471,
+      "error_pct": 0.10830043267470998
+    },
+    {
+      "year": 2023,
+      "region": "APURIMAC",
+      "actual": 720.0,
+      "predicted": 672.2021233766235,
+      "abs_error": 47.79787662337651,
+      "rel_error": 0.0663859397546896,
+      "error_pct": 6.638593975468959
+    },
+    {
+      "year": 2023,
+      "region": "AREQUIPA",
+      "actual": 5194.0,
+      "predicted": 7509.507325396826,
+      "abs_error": 2315.5073253968258,
+      "rel_error": 0.4458042597991578,
+      "error_pct": 44.58042597991578
+    },
+    {
+      "year": 2023,
+      "region": "AYACUCHO",
+      "actual": 415.0,
+      "predicted": 454.361445469735,
+      "abs_error": 39.361445469734974,
+      "rel_error": 0.0948468565535782,
+      "error_pct": 9.48468565535782
+    },
+    {
+      "year": 2023,
+      "region": "CAJAMARCA",
+      "actual": 2092.0,
+      "predicted": 2058.630761904762,
+      "abs_error": 33.36923809523796,
+      "rel_error": 0.0159508786306108,
+      "error_pct": 1.59508786306108
+    },
+    {
+      "year": 2023,
+      "region": "CALLAO",
+      "actual": 3045.0,
+      "predicted": 3362.0259870129867,
+      "abs_error": 317.02598701298666,
+      "rel_error": 0.1041136246348067,
+      "error_pct": 10.41136246348067
+    },
+    {
+      "year": 2023,
+      "region": "CUSCO",
+      "actual": 3234.0,
+      "predicted": 3154.8771944444447,
+      "abs_error": 79.12280555555526,
+      "rel_error": 0.0244659262694976,
+      "error_pct": 2.44659262694976
+    },
+    {
+      "year": 2023,
+      "region": "HUANCAVELICA",
+      "actual": 220.0,
+      "predicted": 3515.5602619047613,
+      "abs_error": 3295.5602619047613,
+      "rel_error": 14.97981937229437,
+      "error_pct": 1497.981937229437
+    },
+    {
+      "year": 2023,
+      "region": "HU\u00c1NUCO",
+      "actual": 1290.0,
+      "predicted": 1276.1233566988565,
+      "abs_error": 13.876643301143533,
+      "rel_error": 0.0107570878303438,
+      "error_pct": 1.07570878303438
+    },
+    {
+      "year": 2023,
+      "region": "ICA",
+      "actual": 2154.0,
+      "predicted": 2131.491944444444,
+      "abs_error": 22.508055555555984,
+      "rel_error": 0.0104494222634893,
+      "error_pct": 1.04494222634893
+    },
+    {
+      "year": 2023,
+      "region": "JUNIN",
+      "actual": 3804.0,
+      "predicted": 3844.928682539682,
+      "abs_error": 40.928682539682086,
+      "rel_error": 0.0107593802680552,
+      "error_pct": 1.07593802680552
+    },
+    {
+      "year": 2023,
+      "region": "LA LIBERTAD",
+      "actual": 4150.0,
+      "predicted": 4255.890829365079,
+      "abs_error": 105.8908293650793,
+      "rel_error": 0.0255158624976094,
+      "error_pct": 2.55158624976094
+    },
+    {
+      "year": 2023,
+      "region": "LAMBAYEQUE",
+      "actual": 2968.0,
+      "predicted": 3007.3003412698417,
+      "abs_error": 39.30034126984174,
+      "rel_error": 0.0132413548752836,
+      "error_pct": 1.32413548752836
+    },
+    {
+      "year": 2023,
+      "region": "LIMA",
+      "actual": 44995.0,
+      "predicted": 36132.3217420635,
+      "abs_error": 8862.678257936503,
+      "rel_error": 0.1969702913198467,
+      "error_pct": 19.69702913198467
+    },
+    {
+      "year": 2023,
+      "region": "LORETO",
+      "actual": 232.0,
+      "predicted": 277.5090896880897,
+      "abs_error": 45.50908968808971,
+      "rel_error": 0.1961598693452143,
+      "error_pct": 19.61598693452143
+    },
+    {
+      "year": 2023,
+      "region": "MADRE DE DIOS",
+      "actual": 462.0,
+      "predicted": 428.3534262435136,
+      "abs_error": 33.64657375648642,
+      "rel_error": 0.0728280817239965,
+      "error_pct": 7.28280817239965
+    },
+    {
+      "year": 2023,
+      "region": "MOQUEGUA",
+      "actual": 754.0,
+      "predicted": 729.2400484544696,
+      "abs_error": 24.759951545530384,
+      "rel_error": 0.0328381320232498,
+      "error_pct": 3.2838132023249798
+    },
+    {
+      "year": 2023,
+      "region": "PASCO",
+      "actual": 304.0,
+      "predicted": 320.3594293394777,
+      "abs_error": 16.359429339477686,
+      "rel_error": 0.0538139123009134,
+      "error_pct": 5.38139123009134
+    },
+    {
+      "year": 2023,
+      "region": "PIURA",
+      "actual": 3367.0,
+      "predicted": 3742.2068095238087,
+      "abs_error": 375.2068095238087,
+      "rel_error": 0.111436533865105,
+      "error_pct": 11.1436533865105
+    },
+    {
+      "year": 2023,
+      "region": "PUNO",
+      "actual": 1196.0,
+      "predicted": 1150.2433151154398,
+      "abs_error": 45.75668488456017,
+      "rel_error": 0.0382580977295653,
+      "error_pct": 3.8258097729565304
+    },
+    {
+      "year": 2023,
+      "region": "SAN MART\u00cdN",
+      "actual": 1510.0,
+      "predicted": 1496.1814491896994,
+      "abs_error": 13.81855081030062,
+      "rel_error": 0.0091513581525169,
+      "error_pct": 0.91513581525169
+    },
+    {
+      "year": 2023,
+      "region": "TACNA",
+      "actual": 1037.0,
+      "predicted": 1041.7746595071592,
+      "abs_error": 4.7746595071591855,
+      "rel_error": 0.0046043003926318,
+      "error_pct": 0.46043003926318
+    },
+    {
+      "year": 2023,
+      "region": "TOTAL ANUAL",
+      "actual": 87083.0,
+      "predicted": 85932.2288412699,
+      "abs_error": 1150.771158730102,
+      "rel_error": 0.0132146476204322,
+      "error_pct": 1.32146476204322
+    },
+    {
+      "year": 2023,
+      "region": "TOTAL SINIESTROS DE TR\u00c1NSITO",
+      "actual": 87083.0,
+      "predicted": 84444.15638901306,
+      "abs_error": 2638.8436109869363,
+      "rel_error": 0.0303026263563145,
+      "error_pct": 3.03026263563145
+    },
+    {
+      "year": 2023,
+      "region": "TUMBES",
+      "actual": 303.0,
+      "predicted": 315.46105391684324,
+      "abs_error": 12.46105391684324,
+      "rel_error": 0.0411255904846311,
+      "error_pct": 4.11255904846311
+    },
+    {
+      "year": 2023,
+      "region": "UCAYALI",
+      "actual": 566.0,
+      "predicted": 571.8254093435801,
+      "abs_error": 5.825409343580077,
+      "rel_error": 0.0102922426565019,
+      "error_pct": 1.02922426565019
+    }
+  ],
+  "future": [
+    {
+      "year": 2024,
+      "region": "AMAZONAS",
+      "predicted_accidents": 490.1946952641551
+    },
+    {
+      "year": 2024,
+      "region": "ANCASH",
+      "predicted_accidents": 2559.7692420634926
+    },
+    {
+      "year": 2024,
+      "region": "APURIMAC",
+      "predicted_accidents": 672.2021233766235
+    },
+    {
+      "year": 2024,
+      "region": "AREQUIPA",
+      "predicted_accidents": 7509.507325396826
+    },
+    {
+      "year": 2024,
+      "region": "AYACUCHO",
+      "predicted_accidents": 454.361445469735
+    },
+    {
+      "year": 2024,
+      "region": "CAJAMARCA",
+      "predicted_accidents": 2058.630761904762
+    },
+    {
+      "year": 2024,
+      "region": "CALLAO",
+      "predicted_accidents": 3362.0259870129867
+    },
+    {
+      "year": 2024,
+      "region": "CUSCO",
+      "predicted_accidents": 3157.5031944444445
+    },
+    {
+      "year": 2024,
+      "region": "HUANCAVELICA",
+      "predicted_accidents": 3515.5602619047613
+    },
+    {
+      "year": 2024,
+      "region": "HU\u00c1NUCO",
+      "predicted_accidents": 1276.1233566988565
+    },
+    {
+      "year": 2024,
+      "region": "ICA",
+      "predicted_accidents": 2131.491944444444
+    },
+    {
+      "year": 2024,
+      "region": "JUNIN",
+      "predicted_accidents": 3844.928682539682
+    },
+    {
+      "year": 2024,
+      "region": "LA LIBERTAD",
+      "predicted_accidents": 4262.595829365079
+    },
+    {
+      "year": 2024,
+      "region": "LAMBAYEQUE",
+      "predicted_accidents": 3007.3003412698417
+    },
+    {
+      "year": 2024,
+      "region": "LIMA",
+      "predicted_accidents": 36132.3217420635
+    },
+    {
+      "year": 2024,
+      "region": "LORETO",
+      "predicted_accidents": 275.32385159285167
+    },
+    {
+      "year": 2024,
+      "region": "MADRE DE DIOS",
+      "predicted_accidents": 429.3230770371644
+    },
+    {
+      "year": 2024,
+      "region": "MOQUEGUA",
+      "predicted_accidents": 729.2400484544696
+    },
+    {
+      "year": 2024,
+      "region": "PASCO",
+      "predicted_accidents": 320.3594293394777
+    },
+    {
+      "year": 2024,
+      "region": "PIURA",
+      "predicted_accidents": 3752.115476190476
+    },
+    {
+      "year": 2024,
+      "region": "PUNO",
+      "predicted_accidents": 1150.2433151154398
+    },
+    {
+      "year": 2024,
+      "region": "SAN MART\u00cdN",
+      "predicted_accidents": 1496.7734491896997
+    },
+    {
+      "year": 2024,
+      "region": "SETIEMBRE",
+      "predicted_accidents": 24307.01861703501
+    },
+    {
+      "year": 2024,
+      "region": "TACNA",
+      "predicted_accidents": 1041.7746595071592
+    },
+    {
+      "year": 2024,
+      "region": "TOTAL ANUAL",
+      "predicted_accidents": 84952.47711904766
+    },
+    {
+      "year": 2024,
+      "region": "TOTAL SINIESTROS DE TR\u00c1NSITO",
+      "predicted_accidents": 83280.77844456861
+    },
+    {
+      "year": 2024,
+      "region": "TUMBES",
+      "predicted_accidents": 316.4370539168433
+    },
+    {
+      "year": 2024,
+      "region": "UCAYALI",
+      "predicted_accidents": 571.8254093435801
+    },
+    {
+      "year": 2025,
+      "region": "AMAZONAS",
+      "predicted_accidents": 490.1946952641551
+    },
+    {
+      "year": 2025,
+      "region": "ANCASH",
+      "predicted_accidents": 2559.7692420634926
+    },
+    {
+      "year": 2025,
+      "region": "APURIMAC",
+      "predicted_accidents": 672.2021233766235
+    },
+    {
+      "year": 2025,
+      "region": "AREQUIPA",
+      "predicted_accidents": 7509.507325396826
+    },
+    {
+      "year": 2025,
+      "region": "AYACUCHO",
+      "predicted_accidents": 454.361445469735
+    },
+    {
+      "year": 2025,
+      "region": "CAJAMARCA",
+      "predicted_accidents": 2058.630761904762
+    },
+    {
+      "year": 2025,
+      "region": "CALLAO",
+      "predicted_accidents": 3362.0259870129867
+    },
+    {
+      "year": 2025,
+      "region": "CUSCO",
+      "predicted_accidents": 3157.5031944444445
+    },
+    {
+      "year": 2025,
+      "region": "HUANCAVELICA",
+      "predicted_accidents": 3515.5602619047613
+    },
+    {
+      "year": 2025,
+      "region": "HU\u00c1NUCO",
+      "predicted_accidents": 1276.1233566988565
+    },
+    {
+      "year": 2025,
+      "region": "ICA",
+      "predicted_accidents": 2131.491944444444
+    },
+    {
+      "year": 2025,
+      "region": "JUNIN",
+      "predicted_accidents": 3844.928682539682
+    },
+    {
+      "year": 2025,
+      "region": "LA LIBERTAD",
+      "predicted_accidents": 4262.595829365079
+    },
+    {
+      "year": 2025,
+      "region": "LAMBAYEQUE",
+      "predicted_accidents": 3007.3003412698417
+    },
+    {
+      "year": 2025,
+      "region": "LIMA",
+      "predicted_accidents": 36132.3217420635
+    },
+    {
+      "year": 2025,
+      "region": "LORETO",
+      "predicted_accidents": 275.32385159285167
+    },
+    {
+      "year": 2025,
+      "region": "MADRE DE DIOS",
+      "predicted_accidents": 429.3230770371644
+    },
+    {
+      "year": 2025,
+      "region": "MOQUEGUA",
+      "predicted_accidents": 729.2400484544696
+    },
+    {
+      "year": 2025,
+      "region": "PASCO",
+      "predicted_accidents": 320.3594293394777
+    },
+    {
+      "year": 2025,
+      "region": "PIURA",
+      "predicted_accidents": 3752.115476190476
+    },
+    {
+      "year": 2025,
+      "region": "PUNO",
+      "predicted_accidents": 1150.2433151154398
+    },
+    {
+      "year": 2025,
+      "region": "SAN MART\u00cdN",
+      "predicted_accidents": 1496.7734491896997
+    },
+    {
+      "year": 2025,
+      "region": "SETIEMBRE",
+      "predicted_accidents": 24307.01861703501
+    },
+    {
+      "year": 2025,
+      "region": "TACNA",
+      "predicted_accidents": 1041.7746595071592
+    },
+    {
+      "year": 2025,
+      "region": "TOTAL ANUAL",
+      "predicted_accidents": 84952.47711904766
+    },
+    {
+      "year": 2025,
+      "region": "TOTAL SINIESTROS DE TR\u00c1NSITO",
+      "predicted_accidents": 83280.77844456861
+    },
+    {
+      "year": 2025,
+      "region": "TUMBES",
+      "predicted_accidents": 316.4370539168433
+    },
+    {
+      "year": 2025,
+      "region": "UCAYALI",
+      "predicted_accidents": 571.8254093435801
+    }
+  ],
+  "metrics": {
+    "total_regions": 27,
+    "mean_error": 35.05813743362552,
+    "median_error": 3.918609020845195,
+    "accuracy": 64.94186256637448,
+    "within_20pct": 90.74074074074075,
+    "within_50pct": 98.14814814814815
+  },
+  "regions": [
+    "AMAZONAS",
+    "ANCASH",
+    "APURIMAC",
+    "AREQUIPA",
+    "AYACUCHO",
+    "CAJAMARCA",
+    "CALLAO",
+    "CUSCO",
+    "HUANCAVELICA",
+    "HU\u00c1NUCO",
+    "ICA",
+    "JUNIN",
+    "LA LIBERTAD",
+    "LAMBAYEQUE",
+    "LIMA",
+    "LORETO",
+    "MADRE DE DIOS",
+    "MOQUEGUA",
+    "PASCO",
+    "PIURA",
+    "PUNO",
+    "SAN MART\u00cdN",
+    "TACNA",
+    "TOTAL ANUAL",
+    "TOTAL SINIESTROS DE TR\u00c1NSITO",
+    "TUMBES",
+    "UCAYALI"
+  ]
+}

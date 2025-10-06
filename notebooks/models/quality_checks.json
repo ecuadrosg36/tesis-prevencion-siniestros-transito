@@ -1,0 +1,16 @@
+{
+  "data_recovery": {
+    "regions_before_fix": 396.0,
+    "regions_after_fix": 447.0,
+    "recovered_regions": 51.0
+  },
+  "prediction_quality": {
+    "predictions_within_20pct": 49.0,
+    "predictions_within_50pct": 53.0,
+    "total_predictions": 54.0
+  },
+  "outlier_handling": {
+    "lima_actual_2022": 41111.0,
+    "lima_predicted_2022": 34597.46717460318
+  }
+}
