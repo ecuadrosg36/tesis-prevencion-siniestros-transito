@@ -1,0 +1,51 @@
+.
+├── LICENSE
+├── README.md
+├── dashboard_data.json
+├── notebooks
+│   ├── bronze_local
+│   ├── dashboard.html
+│   ├── dashboard_data.json
+│   ├── dashboard_enhanced.html
+│   ├── gold_local
+│   │   ├── data_quality_report_final.json
+│   │   └── siniestros_wide_features_model_csv
+│   ├── models
+│   │   ├── final_report.txt
+│   │   ├── future_predictions_2024_2025
+│   │   ├── predictions_best_model
+│   │   ├── quality_checks.json
+│   │   └── validation_report.json
+│   ├── normalizacion_nb.ipynb
+│   ├── prepare_dashboard_data.py
+│   ├── prevencion_sinisestros_nb.ipynb
+│   ├── reports
+│   │   └── data_quality_report.json
+│   ├── serve_dashboard.py
+│   ├── silver_local
+│   │   └── siniestros_long_clean_csv
+│   └── validacion_web.ipynb
+├── pyproject.toml
+├── repo_tree.txt
+├── requirements-dev.txt
+├── requirements-notebook.txt
+├── requirements.txt
+├── scripts
+│   ├── normalizar_siniestros.py
+│   ├── pivot_wide.py
+│   └── verify_outputs.py
+├── src
+│   ├── tesis_prevencion_siniestros_transito
+│   │   ├── __init__.py
+│   │   └── normalize.py
+│   └── tesis_prevencion_siniestros_transito.egg-info
+│       ├── PKG-INFO
+│       ├── SOURCES.txt
+│       ├── dependency_links.txt
+│       ├── entry_points.txt
+│       ├── requires.txt
+│       └── top_level.txt
+└── tests
+    └── test_smoke.py
+
+16 directories, 33 files
