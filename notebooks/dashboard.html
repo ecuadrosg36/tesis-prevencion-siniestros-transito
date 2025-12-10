@@ -335,45 +335,47 @@
         });
 
         function loadData() {
-            // This would normally load from your CSV files
-            // For demo, using sample data
-            predictionData = [
-                {region: 'LIMA', year: 2022, actual: 41111, predicted: 38500, error: 6.3},
-                {region: 'LIMA', year: 2023, actual: 44995, predicted: 42000, error: 6.7},
-                {region: 'AREQUIPA', year: 2022, actual: 5017, predicted: 4800, error: 4.3},
-                {region: 'AREQUIPA', year: 2023, actual: 5194, predicted: 5000, error: 3.7},
-                {region: 'CUSCO', year: 2022, actual: 3365, predicted: 3200, error: 4.9},
-                {region: 'CUSCO', year: 2023, actual: 3234, predicted: 3300, error: 2.0},
-                {region: 'PIURA', year: 2022, actual: 3947, predicted: 3800, error: 3.7},
-                {region: 'PIURA', year: 2023, actual: 3367, predicted: 3400, error: 1.0},
-            ];
+            $.getJSON("dashboard_data.json", function(data) {
+                // Map JSON data to dashboard format
+                predictionData = data.predictions.map(d => ({
+                    region: d.region,
+                    year: d.year,
+                    actual: d.actual,
+                    predicted: d.predicted,
+                    error: d.error_pct
+                }));
 
-            futureData = [
-                {region: 'LIMA', year: 2024, predicted: 46000},
-                {region: 'LIMA', year: 2025, predicted: 47000},
-                {region: 'AREQUIPA', year: 2024, predicted: 5300},
-                {region: 'AREQUIPA', year: 2025, predicted: 5400},
-                {region: 'CUSCO', year: 2024, predicted: 3400},
-                {region: 'CUSCO', year: 2025, predicted: 3500},
-                {region: 'PIURA', year: 2024, predicted: 3500},
-                {region: 'PIURA', year: 2025, predicted: 3600},
-            ];
+                futureData = data.future.map(d => ({
+                    region: d.region,
+                    year: d.year,
+                    predicted: d.predicted_accidents
+                }));
 
-            // Update metrics
-            updateMetrics();
+                // Update metrics
+                updateMetrics(data.metrics);
+                updateCharts();
+            }).fail(function() {
+                console.error("Error loading dashboard_data.json");
+                $('#alerts').html('<div class="alert alert-warning">Error cargando datos. Asegúrate de ejecutar el servidor con python -m http.server</div>');
+            });
         }
 
-        function updateMetrics() {
-            // Calculate average accuracy
-            const avgError = predictionData.reduce((sum, d) => sum + d.error, 0) / predictionData.length;
-            const accuracy = (100 - avgError).toFixed(1);
-            $('#accuracy').text(accuracy + '%');
+        function updateMetrics(metrics) {
+            if (metrics) {
+                $('#accuracy').text(metrics.accuracy.toFixed(1) + '%');
+                $('#regions').text(metrics.total_regions);
+            } else {
+                // Fallback calculation
+                const avgError = predictionData.reduce((sum, d) => sum + d.error, 0) / predictionData.length;
+                const accuracy = (100 - avgError).toFixed(1);
+                $('#accuracy').text(accuracy + '%');
+            }
 
             // Total predictions for 2024
             const total2024 = futureData
                 .filter(d => d.year === 2024)
                 .reduce((sum, d) => sum + d.predicted, 0);
-            $('#pred2024').text(total2024.toLocaleString());
+            $('#pred2024').text(Math.round(total2024).toLocaleString());
         }
 
         function updateCharts() {

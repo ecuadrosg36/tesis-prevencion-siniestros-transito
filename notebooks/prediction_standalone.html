@@ -1,172 +1,732 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Predictor de Siniestros - Versión Standalone</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Predictor de Siniestros - Versión Mejorada</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <style>
-        /* Same styles as above */
+        :root {
+            --risk-1: #22c55e;
+            --risk-2: #eab308;
+            --risk-3: #f97316;
+            --risk-4: #ef4444;
+            --risk-5: #7f1d1d;
+        }
+
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
             min-height: 100vh;
             padding: 20px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
+
         .prediction-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            max-width: 1000px;
             margin: 0 auto;
         }
+
+        .header-title {
+            background: linear-gradient(135deg, #1e3a5f, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            font-size: 2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-select,
+        .form-control {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: all 0.3s;
+        }
+
+        .form-select:focus,
+        .form-control:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+        }
+
         .btn-predict {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #3b82f6 100%);
             color: white;
             border: none;
-            padding: 15px 40px;
+            padding: 16px 48px;
             border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: 600;
-        }
-        .prediction-value {
-            font-size: 3em;
+            font-size: 1.1em;
             font-weight: 700;
-            color: #667eea;
-            text-align: center;
-            margin: 20px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+
+        .btn-predict:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+            color: white;
+        }
+
         .result-section {
             display: none;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 30px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 32px;
+            border-radius: 20px;
+            margin-top: 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .prediction-value {
+            font-size: 4em;
+            font-weight: 800;
+            text-align: center;
+            margin: 16px 0;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1em;
+            color: white;
+        }
+
+        .risk-1 {
+            background: var(--risk-1);
+        }
+
+        .risk-2 {
+            background: var(--risk-2);
+            color: #1f2937;
+        }
+
+        .risk-3 {
+            background: var(--risk-3);
+        }
+
+        .risk-4 {
+            background: var(--risk-4);
+        }
+
+        .risk-5 {
+            background: var(--risk-5);
+        }
+
+        .risk-bar {
+            height: 12px;
+            border-radius: 6px;
+            background: linear-gradient(to right, var(--risk-1), var(--risk-2), var(--risk-3), var(--risk-4), var(--risk-5));
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .risk-indicator {
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 3px solid #1f2937;
+            border-radius: 50%;
+            position: absolute;
+            top: -4px;
+            transform: translateX(-50%);
+            transition: left 0.5s ease;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #1e3a5f;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.9em;
+            margin-top: 4px;
+        }
+
+        .trend-chart {
+            height: 200px;
+            margin-top: 24px;
+        }
+
+        .form-check-input:checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #e5e7eb;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="prediction-card">
-            <h1 class="text-center mb-4">🚦 Predictor de Siniestros de Tránsito</h1>
-            <p class="text-center text-muted mb-4">Versión simplificada - Predicción basada en ML</p>
+            <h1 class="text-center header-title mb-2">🚦 Predictor de Siniestros de Tránsito</h1>
+            <p class="text-center text-muted mb-4">Modelo Random Forest - Datos 2008-2023 | 25 Regiones del Perú</p>
 
-            <div class="row mb-4">
+            <div class="row g-4 mb-4">
                 <div class="col-md-6">
-                    <label class="form-label">Región</label>
+                    <label class="form-label"><i class="fas fa-map-marker-alt me-2"></i>Región</label>
                     <select class="form-select" id="region">
-                        <option value="LIMA">Lima</option>
+                        <option value="AMAZONAS">Amazonas</option>
+                        <option value="ANCASH">Áncash</option>
+                        <option value="APURIMAC">Apurímac</option>
                         <option value="AREQUIPA">Arequipa</option>
-                        <option value="CUSCO">Cusco</option>
-                        <option value="PIURA">Piura</option>
+                        <option value="AYACUCHO">Ayacucho</option>
+                        <option value="CAJAMARCA">Cajamarca</option>
                         <option value="CALLAO">Callao</option>
+                        <option value="CUSCO">Cusco</option>
+                        <option value="HUANCAVELICA">Huancavelica</option>
+                        <option value="HUÁNUCO">Huánuco</option>
+                        <option value="ICA">Ica</option>
+                        <option value="JUNIN">Junín</option>
                         <option value="LA LIBERTAD">La Libertad</option>
                         <option value="LAMBAYEQUE">Lambayeque</option>
-                        <option value="JUNIN">Junín</option>
+                        <option value="LIMA" selected>Lima</option>
+                        <option value="LORETO">Loreto</option>
+                        <option value="MADRE DE DIOS">Madre de Dios</option>
+                        <option value="MOQUEGUA">Moquegua</option>
+                        <option value="PASCO">Pasco</option>
+                        <option value="PIURA">Piura</option>
+                        <option value="PUNO">Puno</option>
+                        <option value="SAN MARTÍN">San Martín</option>
+                        <option value="TACNA">Tacna</option>
+                        <option value="TUMBES">Tumbes</option>
+                        <option value="UCAYALI">Ucayali</option>
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Período</label>
-                    <select class="form-select" id="period">
-                        <option value="day">Día (6:00-18:00)</option>
-                        <option value="night">Noche (18:00-6:00)</option>
+                    <label class="form-label"><i class="fas fa-calendar me-2"></i>Año de Predicción</label>
+                    <select class="form-select" id="year">
+                        <option value="2024">2024 (Proyección)</option>
+                        <option value="2025">2025 (Proyección)</option>
                     </select>
                 </div>
             </div>
 
-            <div class="row mb-4">
+            <div class="row g-4 mb-4">
                 <div class="col-md-4">
-                    <label class="form-label">Clima</label>
+                    <label class="form-label"><i class="fas fa-cloud-sun me-2"></i>Clima Predominante</label>
                     <select class="form-select" id="weather">
-                        <option value="clear">Despejado</option>
-                        <option value="rain">Lluvia</option>
-                        <option value="fog">Neblina</option>
+                        <option value="clear">☀️ Despejado</option>
+                        <option value="rain">🌧️ Lluvia</option>
+                        <option value="fog">🌫️ Neblina</option>
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-check mt-4">
-                        <input class="form-check-input" type="checkbox" id="weekend">
-                        <label class="form-check-label">Fin de Semana</label>
+                    <div class="form-check mt-4 pt-2">
+                        <input class="form-check-input" type="checkbox" id="weekend" style="width: 20px; height: 20px;">
+                        <label class="form-check-label ms-2" for="weekend">
+                            <i class="fas fa-umbrella-beach me-1"></i> Fin de Semana
+                        </label>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-check mt-4">
-                        <input class="form-check-input" type="checkbox" id="holiday">
-                        <label class="form-check-label">Día Festivo</label>
+                    <div class="form-check mt-4 pt-2">
+                        <input class="form-check-input" type="checkbox" id="holiday" style="width: 20px; height: 20px;">
+                        <label class="form-check-label ms-2" for="holiday">
+                            <i class="fas fa-star me-1"></i> Día Festivo
+                        </label>
                     </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <label class="form-label"><i class="fas fa-clock me-2"></i>Hora del Día</label>
+                    <select class="form-select" id="hour">
+                        <option value="6">06:00 - Amanecer</option>
+                        <option value="8">08:00 - Hora punta mañana</option>
+                        <option value="10">10:00 - Media mañana</option>
+                        <option value="12" selected>12:00 - Mediodía</option>
+                        <option value="14">14:00 - Tarde</option>
+                        <option value="17">17:00 - Hora punta tarde</option>
+                        <option value="19">19:00 - Anochecer</option>
+                        <option value="21">21:00 - Noche</option>
+                        <option value="23">23:00 - Noche tardía</option>
+                        <option value="2">02:00 - Madrugada</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label"><i class="fas fa-road me-2"></i>Tipo de Vía</label>
+                    <select class="form-select" id="roadType">
+                        <option value="urban">🏙️ Urbana</option>
+                        <option value="highway">🛣️ Carretera</option>
+                        <option value="rural">🌾 Rural</option>
+                    </select>
                 </div>
             </div>
 
             <div class="text-center">
                 <button class="btn btn-predict" onclick="predict()">
-                    <i class="fas fa-magic"></i> Generar Predicción
+                    <i class="fas fa-chart-line me-2"></i>Generar Predicción
                 </button>
             </div>
 
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p class="mt-3 text-muted">Calculando predicción...</p>
+            </div>
+
             <div class="result-section" id="results">
-                <h3 class="text-center">Predicción de Siniestros</h3>
+                <div class="text-center mb-4">
+                    <span class="risk-badge" id="riskBadge">Nivel de Riesgo</span>
+                </div>
+
+                <h3 class="text-center text-muted mb-2">Predicción Anual de Siniestros</h3>
                 <div class="prediction-value" id="prediction">--</div>
-                <div class="row text-center">
-                    <div class="col-6">
-                        <small>Mínimo</small>
-                        <h4 id="min">--</h4>
+
+                <div class="risk-bar">
+                    <div class="risk-indicator" id="riskIndicator"></div>
+                </div>
+                <div class="d-flex justify-content-between text-muted small">
+                    <span>🟢 Muy Bajo</span>
+                    <span>🟡 Bajo</span>
+                    <span>🟠 Moderado</span>
+                    <span>🔴 Alto</span>
+                    <span>⚫ Crítico</span>
+                </div>
+
+                <div class="row g-3 mt-4">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-value" id="minValue">--</div>
+                            <div class="stat-label">Mínimo Estimado</div>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <small>Máximo</small>
-                        <h4 id="max">--</h4>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-value" id="maxValue">--</div>
+                            <div class="stat-label">Máximo Estimado</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-value" id="dailyAvg">--</div>
+                            <div class="stat-label">Promedio Diario</div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-value" id="accuracy">--</div>
+                            <div class="stat-label">Precisión Modelo</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trend-chart" id="trendChart"></div>
+
+                <!-- Instant Probability Section -->
+                <div class="mt-4 pt-4" style="border-top: 2px solid #e5e7eb;">
+                    <h3 class="text-center mb-3"><i class="fas fa-bolt me-2"></i>Probabilidad de Accidente en Este
+                        Momento</h3>
+                    <p class="text-center text-muted small mb-4">Basado en las condiciones actuales seleccionadas</p>
+
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <div class="text-center">
+                                <div id="probabilityGauge" style="height: 200px;"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="stat-card"
+                                style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);">
+                                <div class="text-center">
+                                    <div class="stat-label mb-2">Probabilidad de Accidente</div>
+                                    <div class="stat-value" id="instantProbability" style="font-size: 3rem;">--%</div>
+                                    <div id="probabilityMessage" class="mt-2" style="font-weight: 600;"></div>
+                                </div>
+                            </div>
+                            <div class="row g-2 mt-3">
+                                <div class="col-6">
+                                    <div class="stat-card">
+                                        <div class="stat-value" id="accidentsPerHour">--</div>
+                                        <div class="stat-label">Accidentes/hora (promedio)</div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="stat-card">
+                                        <div class="stat-value" id="riskFactors">--</div>
+                                        <div class="stat-label">Factores de riesgo activos</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h5 class="mb-3"><i class="fas fa-list-check me-2"></i>Factores de Riesgo Detectados</h5>
+                        <div id="riskFactorsList" class="d-flex flex-wrap gap-2"></div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <p class="text-center text-white-50 mt-4 small">
+            Modelo entrenado con datos históricos 2008-2023 | Random Forest Regressor | 25 Regiones
+        </p>
     </div>
 
     <script>
-        // Simplified prediction logic
+        // Data from the model (will be loaded from JSON if available)
+        let modelData = null;
+
+        // Base predictions from the Random Forest model (fallback if JSON fails)
         const baseValues = {
-            'LIMA': 45000,
-            'AREQUIPA': 5000,
-            'CUSCO': 3300,
-            'PIURA': 3500,
-            'CALLAO': 2700,
-            'LA LIBERTAD': 4500,
-            'LAMBAYEQUE': 3000,
-            'JUNIN': 3500
+            'AMAZONAS': 514, 'ANCASH': 2505, 'APURIMAC': 790, 'AREQUIPA': 5105,
+            'AYACUCHO': 435, 'CAJAMARCA': 2100, 'CALLAO': 2884, 'CUSCO': 3300,
+            'HUANCAVELICA': 210, 'HUÁNUCO': 1275, 'ICA': 2154, 'JUNIN': 3734,
+            'LA LIBERTAD': 4300, 'LAMBAYEQUE': 3053, 'LIMA': 43053, 'LORETO': 199,
+            'MADRE DE DIOS': 602, 'MOQUEGUA': 706, 'PASCO': 316, 'PIURA': 3657,
+            'PUNO': 1340, 'SAN MARTÍN': 1395, 'TACNA': 992, 'TUMBES': 335, 'UCAYALI': 539
         };
+
+        // Model accuracy per region (from dashboard_data.json)
+        const regionAccuracy = {
+            'AMAZONAS': 97.2, 'ANCASH': 98.0, 'APURIMAC': 90.9, 'AREQUIPA': 79.5,
+            'AYACUCHO': 90.3, 'CAJAMARCA': 90.8, 'CALLAO': 73.0, 'CUSCO': 95.3,
+            'HUANCAVELICA': 79.4, 'HUÁNUCO': 99.1, 'ICA': 98.5, 'JUNIN': 81.5,
+            'LA LIBERTAD': 90.1, 'LAMBAYEQUE': 96.2, 'LIMA': 80.9, 'LORETO': 71.1,
+            'MADRE DE DIOS': 91.2, 'MOQUEGUA': 96.2, 'PASCO': 94.5, 'PIURA': 92.3,
+            'PUNO': 94.6, 'SAN MARTÍN': 96.1, 'TACNA': 97.5, 'TUMBES': 85.7, 'UCAYALI': 97.8
+        };
+
+        // Risk level thresholds
+        const riskLevels = [
+            { max: 500, level: 1, name: 'Muy Bajo', color: '#22c55e' },
+            { max: 2000, level: 2, name: 'Bajo', color: '#eab308' },
+            { max: 5000, level: 3, name: 'Moderado', color: '#f97316' },
+            { max: 15000, level: 4, name: 'Alto', color: '#ef4444' },
+            { max: Infinity, level: 5, name: 'Crítico', color: '#7f1d1d' }
+        ];
+
+        function getRiskLevel(value) {
+            for (const level of riskLevels) {
+                if (value <= level.max) return level;
+            }
+            return riskLevels[riskLevels.length - 1];
+        }
+
+        function getRiskPosition(value) {
+            // Map value to 0-100% position on the bar
+            const maxVal = 50000;
+            return Math.min(100, (value / maxVal) * 100);
+        }
+
+        // Try to load real data from dashboard_data.json
+        fetch('dashboard_data.json?v=' + Date.now())
+            .then(r => r.json())
+            .then(data => {
+                modelData = data;
+                console.log('Model data loaded:', data.predictions?.length, 'predictions');
+            })
+            .catch(e => console.log('Using fallback data (JSON not found)'));
 
         function predict() {
             const region = document.getElementById('region').value;
-            const period = document.getElementById('period').value;
+            const year = document.getElementById('year').value;
             const weather = document.getElementById('weather').value;
             const weekend = document.getElementById('weekend').checked;
             const holiday = document.getElementById('holiday').checked;
 
-            // Calculate prediction
-            let base = baseValues[region] || 1000;
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
 
-            // Annual average, convert to daily
-            base = base / 365;
+            setTimeout(() => {
+                // Get base prediction
+                let base = baseValues[region] || 1000;
 
-            // Adjustments
-            if (period === 'night') base *= 1.25;
-            if (weather === 'rain') base *= 1.3;
-            if (weather === 'fog') base *= 1.4;
-            if (weekend) base *= 1.15;
-            if (holiday) base *= 1.2;
+                // If we have model data, try to use 2023 prediction as base
+                if (modelData && modelData.predictions) {
+                    const regionPred = modelData.predictions.find(p => p.region === region && p.year === 2023);
+                    if (regionPred) {
+                        base = regionPred.predicted || base;
+                    }
+                }
 
-            // Add some randomness
-            const variation = 0.1;
-            const min = Math.round(base * (1 - variation));
-            const max = Math.round(base * (1 + variation));
-            const pred = Math.round(base);
+                // Year adjustment (slight increase trend)
+                if (year === '2025') base *= 1.03;
 
-            // Display results
-            document.getElementById('prediction').textContent = pred.toLocaleString();
-            document.getElementById('min').textContent = min.toLocaleString();
-            document.getElementById('max').textContent = max.toLocaleString();
-            document.getElementById('results').style.display = 'block';
+                // Weather adjustments
+                if (weather === 'rain') base *= 1.15;
+                if (weather === 'fog') base *= 1.20;
+
+                // Weekend/Holiday adjustments (annual impact)
+                if (weekend) base *= 1.08;
+                if (holiday) base *= 1.05;
+
+                // Calculate range
+                const errorMargin = 0.10;
+                const min = Math.round(base * (1 - errorMargin));
+                const max = Math.round(base * (1 + errorMargin));
+                const pred = Math.round(base);
+
+                // Get risk level
+                const risk = getRiskLevel(pred);
+                const accuracy = regionAccuracy[region] || 85;
+
+                // Update UI
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
+
+                document.getElementById('prediction').textContent = pred.toLocaleString();
+                document.getElementById('prediction').style.color = risk.color;
+
+                document.getElementById('riskBadge').textContent = `Nivel ${risk.level}: ${risk.name}`;
+                document.getElementById('riskBadge').className = `risk-badge risk-${risk.level}`;
+
+                document.getElementById('riskIndicator').style.left = `${getRiskPosition(pred)}%`;
+
+                document.getElementById('minValue').textContent = min.toLocaleString();
+                document.getElementById('maxValue').textContent = max.toLocaleString();
+                document.getElementById('dailyAvg').textContent = Math.round(pred / 365);
+                document.getElementById('accuracy').textContent = `${accuracy.toFixed(1)}%`;
+
+                // Create trend chart
+                createTrendChart(region, pred);
+
+                // Calculate and display instant probability
+                updateInstantProbability(pred);
+            }, 500);
         }
+
+        function createTrendChart(region, prediction) {
+            // Get historical data if available
+            let hist2022 = baseValues[region] * 0.95;
+            let hist2023 = baseValues[region];
+
+            if (modelData && modelData.predictions) {
+                const r2022 = modelData.predictions.find(p => p.region === region && p.year === 2022);
+                const r2023 = modelData.predictions.find(p => p.region === region && p.year === 2023);
+                if (r2022) hist2022 = r2022.actual;
+                if (r2023) hist2023 = r2023.actual;
+            }
+
+            const trace = {
+                x: ['2022', '2023', '2024*', '2025*'],
+                y: [hist2022, hist2023, prediction, prediction * 1.03],
+                type: 'scatter',
+                mode: 'lines+markers',
+                fill: 'tozeroy',
+                fillcolor: 'rgba(59, 130, 246, 0.1)',
+                line: { color: '#3b82f6', width: 3 },
+                marker: { size: 10, color: ['#3b82f6', '#3b82f6', '#f97316', '#f97316'] }
+            };
+
+            const layout = {
+                title: { text: `Tendencia: ${region}`, font: { size: 14 } },
+                margin: { t: 40, r: 20, b: 40, l: 60 },
+                xaxis: { title: '' },
+                yaxis: { title: 'Siniestros' },
+                showlegend: false,
+                annotations: [{
+                    x: '2024*', y: prediction,
+                    text: 'Predicción', showarrow: true,
+                    arrowhead: 2, ax: 40, ay: -30,
+                    font: { color: '#f97316', size: 11 }
+                }]
+            };
+
+            Plotly.newPlot('trendChart', [trace], layout, { responsive: true });
+        }
+
+        function calculateInstantProbability(annualPrediction) {
+            const hour = parseInt(document.getElementById('hour').value);
+            const weather = document.getElementById('weather').value;
+            const weekend = document.getElementById('weekend').checked;
+            const holiday = document.getElementById('holiday').checked;
+            const roadType = document.getElementById('roadType').value;
+
+            // Convert annual to hourly base rate
+            let hourlyRate = annualPrediction / 365 / 24;
+
+            // Hour multipliers based on accident statistics
+            const hourMultipliers = {
+                2: 0.6,   // Madrugada - menor tráfico
+                6: 0.9,   // Amanecer
+                8: 1.4,   // Hora punta mañana
+                10: 1.1,  // Media mañana
+                12: 1.2,  // Mediodía
+                14: 1.1,  // Tarde
+                17: 1.5,  // Hora punta tarde - MÁXIMO
+                19: 1.3,  // Anochecer
+                21: 1.1,  // Noche
+                23: 0.8   // Noche tardía
+            };
+            hourlyRate *= hourMultipliers[hour] || 1.0;
+
+            // Weather multipliers
+            if (weather === 'rain') hourlyRate *= 1.35;
+            if (weather === 'fog') hourlyRate *= 1.45;
+
+            // Weekend/Holiday
+            if (weekend) hourlyRate *= 1.15;
+            if (holiday) hourlyRate *= 1.25;
+
+            // Road type
+            if (roadType === 'highway') hourlyRate *= 1.3;
+            if (roadType === 'rural') hourlyRate *= 0.7;
+
+            // Calculate probability (Poisson approximation)
+            // P(at least 1 accident) = 1 - e^(-lambda)
+            const probability = 1 - Math.exp(-hourlyRate);
+
+            // Collect risk factors
+            const riskFactors = [];
+            if (hour >= 17 && hour <= 19) riskFactors.push({ name: '⏰ Hora punta', type: 'danger' });
+            if (hour >= 21 || hour <= 5) riskFactors.push({ name: '🌙 Horario nocturno', type: 'warning' });
+            if (weather === 'rain') riskFactors.push({ name: '🌧️ Lluvia', type: 'danger' });
+            if (weather === 'fog') riskFactors.push({ name: '🌫️ Neblina', type: 'danger' });
+            if (weekend) riskFactors.push({ name: '📅 Fin de semana', type: 'warning' });
+            if (holiday) riskFactors.push({ name: '🎉 Día festivo', type: 'warning' });
+            if (roadType === 'highway') riskFactors.push({ name: '🛣️ Carretera', type: 'warning' });
+
+            return {
+                probability: probability * 100,
+                hourlyRate: hourlyRate,
+                riskFactors: riskFactors
+            };
+        }
+
+        function createProbabilityGauge(probability) {
+            const gaugeColor = probability < 30 ? '#22c55e' : probability < 60 ? '#eab308' : '#ef4444';
+
+            const data = [{
+                type: 'indicator',
+                mode: 'gauge+number',
+                value: probability,
+                number: { suffix: '%', font: { size: 36 } },
+                gauge: {
+                    axis: { range: [0, 100], tickwidth: 2 },
+                    bar: { color: gaugeColor },
+                    bgcolor: 'white',
+                    borderwidth: 2,
+                    bordercolor: '#e5e7eb',
+                    steps: [
+                        { range: [0, 30], color: '#dcfce7' },
+                        { range: [30, 60], color: '#fef3c7' },
+                        { range: [60, 100], color: '#fee2e2' }
+                    ],
+                    threshold: {
+                        line: { color: '#1e3a5f', width: 4 },
+                        thickness: 0.75,
+                        value: probability
+                    }
+                }
+            }];
+
+            const layout = {
+                margin: { t: 30, r: 30, l: 30, b: 10 },
+                paper_bgcolor: 'transparent',
+                font: { family: 'Segoe UI' }
+            };
+
+            Plotly.newPlot('probabilityGauge', data, layout, { responsive: true });
+        }
+
+        function updateInstantProbability(annualPrediction) {
+            const result = calculateInstantProbability(annualPrediction);
+
+            // Update probability display
+            const prob = result.probability;
+            document.getElementById('instantProbability').textContent = prob.toFixed(1) + '%';
+
+            // Color based on probability
+            const probColor = prob < 30 ? '#22c55e' : prob < 60 ? '#eab308' : '#ef4444';
+            document.getElementById('instantProbability').style.color = probColor;
+
+            // Message
+            let message, messageClass;
+            if (prob < 20) {
+                message = '✅ Riesgo muy bajo';
+                messageClass = 'text-success';
+            } else if (prob < 40) {
+                message = '🟢 Riesgo bajo';
+                messageClass = 'text-success';
+            } else if (prob < 60) {
+                message = '⚠️ Riesgo moderado';
+                messageClass = 'text-warning';
+            } else if (prob < 80) {
+                message = '🔶 Riesgo alto';
+                messageClass = 'text-warning';
+            } else {
+                message = '🚨 Riesgo muy alto';
+                messageClass = 'text-danger';
+            }
+            document.getElementById('probabilityMessage').textContent = message;
+            document.getElementById('probabilityMessage').className = 'mt-2 fw-bold ' + messageClass;
+
+            // Accidents per hour
+            document.getElementById('accidentsPerHour').textContent = result.hourlyRate.toFixed(2);
+            document.getElementById('riskFactors').textContent = result.riskFactors.length;
+
+            // Risk factors list
+            const factorsList = document.getElementById('riskFactorsList');
+            factorsList.innerHTML = '';
+            if (result.riskFactors.length === 0) {
+                factorsList.innerHTML = '<span class="badge bg-success">✓ Sin factores de riesgo adicionales</span>';
+            } else {
+                result.riskFactors.forEach(factor => {
+                    const badgeClass = factor.type === 'danger' ? 'bg-danger' : 'bg-warning text-dark';
+                    factorsList.innerHTML += `<span class="badge ${badgeClass}">${factor.name}</span>`;
+                });
+            }
+
+            // Create gauge
+            createProbabilityGauge(prob);
+        }
+
+        // Auto-predict on load
+        window.onload = () => setTimeout(predict, 800);
     </script>
 </body>
+
 </html>
