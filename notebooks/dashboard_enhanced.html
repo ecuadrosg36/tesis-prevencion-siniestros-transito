@@ -1,287 +1,510 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Avanzado - Predicción de Siniestros</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Dashboard de Predicción de Siniestros - Perú</title>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #3b82f6;
+            --success: #22c55e;
+            --warning: #eab308;
+            --danger: #ef4444;
+        }
+
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #0d1b2a 100%);
             min-height: 100vh;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 24px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
-        .main-header {
-            background: rgba(255,255,255,0.95);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
         }
+
+        .header-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-title {
+            background: linear-gradient(135deg, #1e3a5f, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
         .metric-card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 24px;
             text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #e5e7eb;
         }
+
         .metric-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
         }
+
+        .metric-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .metric-label {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+
         .chart-card {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
         }
-        .status-good { color: #28a745; }
-        .status-warning { color: #ffc107; }
-        .status-danger { color: #dc3545; }
+
+        .chart-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-size: 1.2rem;
+        }
+
+        .table-container {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead th {
+            background: linear-gradient(135deg, #1e3a5f, #3b82f6);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 14px 12px;
+        }
+
+        .table thead th:first-child {
+            border-radius: 12px 0 0 0;
+        }
+
+        .table thead th:last-child {
+            border-radius: 0 12px 0 0;
+        }
+
+        .table tbody td {
+            padding: 12px;
+            vertical-align: middle;
+            border-color: #e5e7eb;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .status-good {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .accuracy-good {
+            color: var(--success);
+        }
+
+        .accuracy-warning {
+            color: var(--warning);
+        }
+
+        .accuracy-danger {
+            color: var(--danger);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(30, 58, 95, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .timestamp {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
+
 <body>
-    <div class="container-fluid">
-        <div class="main-header">
-            <h1 class="text-center mb-4">🚦 Dashboard de Predicción de Siniestros de Tránsito</h1>
-            <p class="text-center text-muted">Sistema ML para Prevención de Accidentes - Perú</p>
-
-            <div class="row mt-4">
-                <div class="col-md-3">
-                    <div class="metric-card">
-                        <h5>Precisión del Modelo</h5>
-                        <h2 id="accuracy" class="status-good">--</h2>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="metric-card">
-                        <h5>Regiones Analizadas</h5>
-                        <h2 id="regions">--</h2>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="metric-card">
-                        <h5>Error Promedio</h5>
-                        <h2 id="error">--</h2>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="metric-card">
-                        <h5>Predicciones 2024</h5>
-                        <h2 id="future">--</h2>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="chart-card">
-                    <h3>Comparación Real vs Predicción</h3>
-                    <div id="comparisonChart"></div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="chart-card">
-                    <h3>Error por Región</h3>
-                    <div id="errorChart"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <div class="chart-card">
-                    <h3>Tendencia Temporal y Proyecciones</h3>
-                    <div id="timelineChart"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <div class="chart-card">
-                    <h3>Tabla de Predicciones</h3>
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Región</th>
-                                    <th>Año</th>
-                                    <th>Valor Real</th>
-                                    <th>Predicción</th>
-                                    <th>Error (%)</th>
-                                    <th>Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody id="predictionsTable">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="text-center text-white">
+            <div class="spinner mx-auto mb-3"></div>
+            <p>Cargando datos del modelo...</p>
         </div>
     </div>
 
-    <script>
-    // Load data from JSON file or use sample data
-    let dashboardData = null;
+    <div class="dashboard-container">
+        <div class="header-card">
+            <h1 class="text-center header-title">🚦 Dashboard de Predicción de Siniestros</h1>
+            <p class="text-center text-muted mb-4">Sistema ML para Prevención de Accidentes - Perú 2008-2023</p>
 
-    // Try to load actual data
-    $.getJSON("dashboard_data.json")
-        .done(function(data) {
-            dashboardData = data;
-            initializeDashboard();
+            <div class="row g-4">
+                <div class="col-md-3 col-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">🎯</div>
+                        <div class="metric-value accuracy-good" id="accuracy">--</div>
+                        <div class="metric-label">Precisión del Modelo</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">🗺️</div>
+                        <div class="metric-value" id="regions">--</div>
+                        <div class="metric-label">Regiones Analizadas</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">📊</div>
+                        <div class="metric-value" id="predictions">--</div>
+                        <div class="metric-label">Predicciones Totales</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="metric-card">
+                        <div class="metric-icon">📈</div>
+                        <div class="metric-value" id="total2024">--</div>
+                        <div class="metric-label">Proyección 2024</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="chart-card">
+                    <h3 class="chart-title"><i class="fas fa-chart-bar me-2"></i>Comparación Real vs Predicción</h3>
+                    <div id="comparisonChart" style="height: 350px;"></div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="chart-card">
+                    <h3 class="chart-title"><i class="fas fa-exclamation-triangle me-2"></i>Error por Región (%)</h3>
+                    <div id="errorChart" style="height: 350px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3 class="chart-title"><i class="fas fa-chart-line me-2"></i>Tendencia Histórica y Proyecciones</h3>
+            <div id="timelineChart" style="height: 400px;"></div>
+        </div>
+
+        <div class="table-container">
+            <h3 class="chart-title"><i class="fas fa-table me-2"></i>Tabla de Predicciones</h3>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Región</th>
+                            <th>Año</th>
+                            <th>Valor Real</th>
+                            <th>Predicción</th>
+                            <th>Error (%)</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="predictionsTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <p class="timestamp" id="timestamp">Última actualización: --</p>
+    </div>
+
+    <script>
+        // Cache-busting: use current timestamp
+        const cacheKey = new Date().getTime();
+        let dashboardData = null;
+
+        // Load data with aggressive cache-busting
+        $.ajax({
+            url: "dashboard_data.json",
+            dataType: "json",
+            cache: false,
+            headers: { "Cache-Control": "no-cache" },
+            data: { _t: cacheKey }
         })
-        .fail(function() {
-            // Use sample data if file not found
-            console.log("Using sample data");
-            dashboardData = {
-                predictions: [
-                    {region: "LIMA", year: 2022, actual: 41111, predicted: 38500, error_pct: 6.3},
-                    {region: "LIMA", year: 2023, actual: 44995, predicted: 42000, error_pct: 6.7},
-                    {region: "AREQUIPA", year: 2022, actual: 5017, predicted: 4800, error_pct: 4.3},
-                    {region: "CUSCO", year: 2022, actual: 3365, predicted: 3200, error_pct: 4.9}
-                ],
-                future: [
-                    {region: "LIMA", year: 2024, predicted_accidents: 46000},
-                    {region: "LIMA", year: 2025, predicted_accidents: 47000}
-                ],
-                metrics: {
-                    accuracy: 93.5,
-                    mean_error: 6.5,
-                    total_regions: 25
+            .done(function (data) {
+                dashboardData = data;
+                initializeDashboard();
+            })
+            .fail(function () {
+                console.error("Failed to load dashboard_data.json");
+                $("#loadingOverlay").hide();
+                alert("Error: No se pudo cargar dashboard_data.json");
+            });
+
+        function initializeDashboard() {
+            updateMetrics();
+            createComparisonChart();
+            createErrorChart();
+            createTimelineChart();
+            updateTable();
+
+            // Show timestamp
+            const now = new Date();
+            $("#timestamp").text("Última actualización: " + now.toLocaleString('es-PE'));
+
+            // Hide loading
+            setTimeout(() => $("#loadingOverlay").fadeOut(300), 500);
+        }
+
+        function updateMetrics() {
+            const accuracy = dashboardData.metrics?.accuracy || 90;
+            const accuracyClass = accuracy >= 85 ? 'accuracy-good' : accuracy >= 70 ? 'accuracy-warning' : 'accuracy-danger';
+
+            $("#accuracy").text(accuracy.toFixed(1) + "%").removeClass().addClass('metric-value ' + accuracyClass);
+            $("#regions").text(dashboardData.metrics?.total_regions || dashboardData.regions?.length || 25);
+            $("#predictions").text(dashboardData.predictions?.length || 0);
+
+            // Calculate 2024 projection
+            const total2024 = (dashboardData.future || [])
+                .filter(d => d.year === 2024)
+                .reduce((sum, d) => sum + (d.predicted_accidents || d.predicted || 0), 0);
+
+            if (total2024 > 0) {
+                $("#total2024").text(Math.round(total2024).toLocaleString());
+            } else {
+                // Estimate from 2023 data
+                const total2023 = dashboardData.predictions
+                    .filter(d => d.year === 2023)
+                    .reduce((sum, d) => sum + (d.actual || 0), 0);
+                $("#total2024").text("~" + Math.round(total2023 * 1.02).toLocaleString());
+            }
+        }
+
+        function createComparisonChart() {
+            // Get top 10 regions by actual value
+            const sortedData = [...dashboardData.predictions]
+                .filter(d => d.year === 2023)
+                .sort((a, b) => (b.actual || 0) - (a.actual || 0))
+                .slice(0, 10);
+
+            const trace1 = {
+                x: sortedData.map(d => d.region),
+                y: sortedData.map(d => d.actual),
+                name: "Valor Real",
+                type: "bar",
+                marker: { color: "#3b82f6" }
+            };
+
+            const trace2 = {
+                x: sortedData.map(d => d.region),
+                y: sortedData.map(d => d.predicted),
+                name: "Predicción ML",
+                type: "bar",
+                marker: { color: "#22c55e" }
+            };
+
+            const layout = {
+                barmode: "group",
+                margin: { t: 20, r: 20, b: 80, l: 60 },
+                xaxis: { tickangle: -45 },
+                yaxis: { title: "Siniestros" },
+                legend: { orientation: "h", y: 1.1 },
+                paper_bgcolor: "transparent",
+                plot_bgcolor: "transparent"
+            };
+
+            Plotly.newPlot("comparisonChart", [trace1, trace2], layout, { responsive: true });
+        }
+
+        function createErrorChart() {
+            const sortedData = [...dashboardData.predictions]
+                .sort((a, b) => (b.error_pct || 0) - (a.error_pct || 0))
+                .slice(0, 15);
+
+            const trace = {
+                x: sortedData.map(d => d.region + " '" + (d.year % 100)),
+                y: sortedData.map(d => d.error_pct),
+                type: "bar",
+                marker: {
+                    color: sortedData.map(d =>
+                        d.error_pct < 10 ? "#22c55e" : d.error_pct < 20 ? "#eab308" : "#ef4444"
+                    )
                 }
             };
-            initializeDashboard();
-        });
 
-    function initializeDashboard() {
-        updateMetrics();
-        createComparisonChart();
-        createErrorChart();
-        createTimelineChart();
-        updateTable();
-    }
+            const layout = {
+                margin: { t: 20, r: 20, b: 100, l: 50 },
+                xaxis: { tickangle: -45 },
+                yaxis: { title: "Error (%)" },
+                paper_bgcolor: "transparent",
+                plot_bgcolor: "transparent",
+                shapes: [{
+                    type: 'line', x0: -0.5, x1: sortedData.length - 0.5,
+                    y0: 10, y1: 10, line: { color: '#22c55e', width: 2, dash: 'dash' }
+                }, {
+                    type: 'line', x0: -0.5, x1: sortedData.length - 0.5,
+                    y0: 20, y1: 20, line: { color: '#ef4444', width: 2, dash: 'dash' }
+                }]
+            };
 
-    function updateMetrics() {
-        $("#accuracy").text((dashboardData.metrics.accuracy || 93.5).toFixed(1) + "%");
-        $("#regions").text(dashboardData.metrics.total_regions || 25);
-        $("#error").text((dashboardData.metrics.mean_error || 6.5).toFixed(1) + "%");
+            Plotly.newPlot("errorChart", [trace], layout, { responsive: true });
+        }
 
-        const total2024 = dashboardData.future
-            .filter(d => d.year === 2024)
-            .reduce((sum, d) => sum + (d.predicted_accidents || d.predicted || 0), 0);
-        $("#future").text(total2024.toLocaleString());
-    }
+        function createTimelineChart() {
+            const topRegions = ['LIMA', 'AREQUIPA', 'LA LIBERTAD', 'PIURA', 'CUSCO'];
+            const traces = [];
+            const colors = ['#3b82f6', '#22c55e', '#f97316', '#a855f7', '#ec4899'];
 
-    function createComparisonChart() {
-        const trace1 = {
-            x: dashboardData.predictions.map(d => d.region),
-            y: dashboardData.predictions.map(d => d.actual),
-            name: "Valor Real",
-            type: "bar"
-        };
+            topRegions.forEach((region, idx) => {
+                const regionData = dashboardData.predictions.filter(d => d.region === region);
+                const futureData = (dashboardData.future || []).filter(d => d.region === region);
 
-        const trace2 = {
-            x: dashboardData.predictions.map(d => d.region),
-            y: dashboardData.predictions.map(d => d.predicted),
-            name: "Predicción",
-            type: "bar"
-        };
+                if (regionData.length > 0) {
+                    traces.push({
+                        x: regionData.map(d => d.year),
+                        y: regionData.map(d => d.actual),
+                        name: region,
+                        type: "scatter",
+                        mode: "lines+markers",
+                        line: { color: colors[idx], width: 3 },
+                        marker: { size: 8 }
+                    });
 
-        const layout = {
-            barmode: "group",
-            xaxis: {title: "Región"},
-            yaxis: {title: "Número de Siniestros"}
-        };
-
-        Plotly.newPlot("comparisonChart", [trace1, trace2], layout);
-    }
-
-    function createErrorChart() {
-        const trace = {
-            x: dashboardData.predictions.map(d => d.region),
-            y: dashboardData.predictions.map(d => d.error_pct),
-            type: "bar",
-            marker: {
-                color: dashboardData.predictions.map(d => 
-                    d.error_pct < 10 ? "green" : d.error_pct < 20 ? "orange" : "red"
-                )
-            }
-        };
-
-        const layout = {
-            xaxis: {title: "Región"},
-            yaxis: {title: "Error (%)"}
-        };
-
-        Plotly.newPlot("errorChart", [trace], layout);
-    }
-
-    function createTimelineChart() {
-        const regions = [...new Set(dashboardData.predictions.map(d => d.region))];
-        const traces = [];
-
-        regions.slice(0, 5).forEach(region => {
-            const regionData = dashboardData.predictions.filter(d => d.region === region);
-            const futureData = dashboardData.future.filter(d => d.region === region);
-
-            traces.push({
-                x: regionData.map(d => d.year),
-                y: regionData.map(d => d.actual),
-                name: region + " (Real)",
-                type: "scatter",
-                mode: "lines+markers"
+                    if (futureData.length > 0) {
+                        const lastActual = regionData[regionData.length - 1];
+                        traces.push({
+                            x: [lastActual.year, ...futureData.map(d => d.year)],
+                            y: [lastActual.actual, ...futureData.map(d => d.predicted_accidents || d.predicted)],
+                            name: region + " (Proyección)",
+                            type: "scatter",
+                            mode: "lines+markers",
+                            line: { color: colors[idx], width: 2, dash: "dot" },
+                            marker: { size: 6, symbol: 'diamond' },
+                            showlegend: false
+                        });
+                    }
+                }
             });
 
-            traces.push({
-                x: [...regionData.map(d => d.year), ...futureData.map(d => d.year)],
-                y: [...regionData.map(d => d.predicted), ...futureData.map(d => d.predicted_accidents || d.predicted)],
-                name: region + " (Predicción)",
-                type: "scatter",
-                mode: "lines+markers",
-                line: {dash: "dot"}
+            const layout = {
+                margin: { t: 20, r: 20, b: 50, l: 60 },
+                xaxis: { title: "Año", dtick: 1 },
+                yaxis: { title: "Siniestros" },
+                legend: { orientation: "h", y: 1.15 },
+                hovermode: "x unified",
+                paper_bgcolor: "transparent",
+                plot_bgcolor: "transparent"
+            };
+
+            Plotly.newPlot("timelineChart", traces, layout, { responsive: true });
+        }
+
+        function updateTable() {
+            const tbody = $("#predictionsTable");
+            tbody.empty();
+
+            dashboardData.predictions.forEach(d => {
+                let statusClass, statusText;
+                if (d.error_pct < 10) {
+                    statusClass = 'status-good';
+                    statusText = '✅ Bueno';
+                } else if (d.error_pct < 20) {
+                    statusClass = 'status-warning';
+                    statusText = '⚠️ Regular';
+                } else {
+                    statusClass = 'status-danger';
+                    statusText = '❌ Revisar';
+                }
+
+                const row = `
+                    <tr>
+                        <td><strong>${d.region}</strong></td>
+                        <td>${d.year}</td>
+                        <td>${(d.actual || 0).toLocaleString()}</td>
+                        <td>${Math.round(d.predicted || 0).toLocaleString()}</td>
+                        <td>${(d.error_pct || 0).toFixed(1)}%</td>
+                        <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                    </tr>
+                `;
+                tbody.append(row);
             });
-        });
-
-        const layout = {
-            xaxis: {title: "Año"},
-            yaxis: {title: "Número de Siniestros"},
-            hovermode: "x unified"
-        };
-
-        Plotly.newPlot("timelineChart", traces, layout);
-    }
-
-    function updateTable() {
-        const tbody = $("#predictionsTable");
-        tbody.empty();
-
-        dashboardData.predictions.forEach(d => {
-            const status = d.error_pct < 10 
-                ? '<span class="status-good">✅ Bueno</span>' 
-                : d.error_pct < 20 
-                ? '<span class="status-warning">⚠️ Regular</span>' 
-                : '<span class="status-danger">❌ Revisar</span>';
-
-            const row = `
-                <tr>
-                    <td>${d.region}</td>
-                    <td>${d.year}</td>
-                    <td>${(d.actual || 0).toLocaleString()}</td>
-                    <td>${(d.predicted || 0).toLocaleString()}</td>
-                    <td>${(d.error_pct || 0).toFixed(1)}%</td>
-                    <td>${status}</td>
-                </tr>
-            `;
-            tbody.append(row);
-        });
-    }
+        }
     </script>
 </body>
+
 </html>
