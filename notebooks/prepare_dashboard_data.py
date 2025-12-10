@@ -11,7 +11,16 @@ from pathlib import Path
 def prepare_dashboard_data():
     """Load and prepare data from model outputs"""
 
-    DIR_MODELS = Path("models")
+    # Check for models directory in multiple locations
+    possible_paths = [Path("models"), Path("notebooks/models")]
+    DIR_MODELS = Path("models") # Default
+    
+    for p in possible_paths:
+        if p.exists() and (p / "predictions_best_model").exists():
+            DIR_MODELS = p
+            break
+            
+    print(f"Looking for models in: {DIR_MODELS.resolve()}")
     output_data = {
         "predictions": [],
         "future": [],
@@ -41,6 +50,11 @@ def prepare_dashboard_data():
             else:
                 df['error_pct'] = df['rel_error'] * 100 if 'rel_error' in df.columns else 0
 
+            # Filter out aggregate rows that are not real regions
+            # Use case-insensitive partial matching for robustness
+            exclude_pattern = r'(?i)^(TOTAL|SETIEMBRE)'
+            df = df[~df['region'].str.contains(exclude_pattern, regex=True, na=False)]
+
             # Convert to records
             output_data["predictions"] = df.to_dict('records')
             output_data["regions"] = df['region'].unique().tolist()
@@ -51,6 +65,9 @@ def prepare_dashboard_data():
         csv_files = list(future_path.glob("*.csv"))
         if csv_files:
             df_future = pd.read_csv(csv_files[0])
+            # Filter out aggregate rows
+            exclude_pattern = r'(?i)^(TOTAL|SETIEMBRE)'
+            df_future = df_future[~df_future['region'].str.contains(exclude_pattern, regex=True, na=False)]
             output_data["future"] = df_future.to_dict('records')
 
     # Calculate metrics
@@ -65,9 +82,12 @@ def prepare_dashboard_data():
             "within_50pct": (df_pred['error_pct'] <= 50).mean() * 100
         }
 
-    # Save to JSON
-    with open("dashboard_data.json", 'w') as f:
+    # Save to JSON (in the same directory as this script)
+    script_dir = Path(__file__).parent
+    output_path = script_dir / "dashboard_data.json"
+    with open(output_path, 'w') as f:
         json.dump(output_data, f, indent=2)
+    print(f"Saved to: {output_path}")
 
     print(f"Dashboard data prepared: {len(output_data['predictions'])} predictions")
     print(f"Regions: {len(output_data['regions'])}")
