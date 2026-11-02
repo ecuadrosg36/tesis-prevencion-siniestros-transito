@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: "3.12"
+          activate-environment: true
+      - name: Install dependencies
+        run: uv pip install -r requirements-dev.txt -e . ruff
+      - name: Check for errors
+        run: ruff check src tests scripts --select E9,F63,F7,F82
+      - name: Tests (includes full ETL run)
+        run: pytest -q
