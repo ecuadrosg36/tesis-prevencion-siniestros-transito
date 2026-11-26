@@ -30,7 +30,6 @@ VENV_PYTHON = PROJECT_ROOT / ".venv" / "bin" / "python"
 NOTEBOOKS_DIR = PROJECT_ROOT / "notebooks"
 DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
 DASHBOARD_URL = "http://localhost:8000/notebooks/dashboard_enhanced.html"
-PREDICTION_URL = "http://localhost:8000/notebooks/prediction_standalone.html"
 SERVER_PORT = 8000
 
 # ============================================================
@@ -195,8 +194,6 @@ def step_start_server():
             print(f"  → Using existing server. Opening dashboards (cache-busted)...")
             timestamp = int(time.time())
             webbrowser.open(f"{DASHBOARD_URL}?v={timestamp}")
-            time.sleep(1)
-            webbrowser.open(f"{PREDICTION_URL}?v={timestamp}")
             return
     
     # Open browsers after delay with cache-busting
@@ -205,9 +202,6 @@ def step_start_server():
         timestamp = int(time.time())
         print(f"\n  🌐 Opening Dashboard (cache-busted): {DASHBOARD_URL}")
         webbrowser.open(f"{DASHBOARD_URL}?v={timestamp}")
-        time.sleep(1)
-        print(f"  🎯 Opening Predictor (cache-busted): {PREDICTION_URL}")
-        webbrowser.open(f"{PREDICTION_URL}?v={timestamp}")
     
     import threading
     threading.Thread(target=open_browsers, daemon=True).start()

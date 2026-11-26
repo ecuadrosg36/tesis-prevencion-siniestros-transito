@@ -15,9 +15,9 @@ El sistema integra un pipeline de datos robusto, análisis exploratorio avanzado
 * **Modelado Predictivo:**
   * **Random Forest Regressor:** Modelo robusto que captura interacciones complejas entre regiones y factores temporales.
   * Ingeniería de características avanzada con codificación de regiones (OneHotEncoder).
-* **Aplicación Web Interactiva:**
-  * Interfaz amigable para realizar predicciones en tiempo real por región, fecha y condiciones climáticas.
-  * Disponible en versión Web (Flask) y Standalone (HTML).
+* **Dashboards de Resultados:**
+  * Valores reales vs. predichos por región (2022-2023) y proyecciones del modelo para 2024-2025.
+  * El modelo predice el total anual por región; no usa clima, hora ni fecha exacta.
 
 ## 📂 Estructura del Proyecto
 
@@ -27,8 +27,8 @@ tesis-prevencion-siniestros-transito/
 ├── notebooks/              # Jupyter Notebooks para análisis y ML
 │   ├── normalizacion_nb.ipynb  # Limpieza y generación de tablas Gold/Silver
 │   ├── prediction_nb.ipynb     # Entrenamiento del modelo y evaluación
-│   ├── prediction_app.py       # Aplicación Web (Flask)
-│   └── prediction_standalone.html # Interfaz de predicción offline
+│   ├── dashboard.html          # Dashboard básico (lee dashboard_data.json)
+│   └── dashboard_enhanced.html # Dashboard con gráficos Plotly
 ├── scripts/                # Scripts de utilidad (normalización, pivoteo, verificación)
 │   ├── normalizar_siniestros.py
 │   ├── pivot_wide.py
@@ -87,22 +87,7 @@ tpst-normalizar "data/raw/PERU. SINIESTROS DE TRANSITO POR AÑO 2008-2023.xlsx" 
 * Ejecuta `notebooks/normalizacion_nb.ipynb` para realizar la limpieza profunda y generar las tablas analíticas (Silver/Gold).
 * Ejecuta `notebooks/prediction_nb.ipynb` para entrenar el modelo predictivo y evaluar su desempeño.
 
-### 3. Aplicación de Predicción
-
-Para iniciar la interfaz web y realizar predicciones:
-
-**Opción A: Servidor Flask (Recomendado)**
-
-```bash
-python notebooks/prediction_app.py
-```
-
-Luego abre `http://localhost:5000` en tu navegador.
-
-**Opción B: Versión Standalone**
-Simplemente abre el archivo `notebooks/prediction_standalone.html` en cualquier navegador web.
-
-### 4. Dashboard de Resultados
+### 3. Dashboard de Resultados
 
 Para visualizar el rendimiento del modelo y las proyecciones futuras:
 
@@ -121,7 +106,7 @@ Para visualizar el rendimiento del modelo y las proyecciones futuras:
     * Métricas de error (MAPE, RMSE).
     * Proyecciones para 2024-2025.
 
-### 5. Dashboard Optimizado (Recomendado)
+### 4. Dashboard Optimizado (Recomendado)
 
 Para una experiencia visual mejorada con gráficos interactivos y métricas detalladas:
 
@@ -131,7 +116,7 @@ Para una experiencia visual mejorada con gráficos interactivos y métricas deta
     * Tablas de estado con semáforos de precisión.
     * Líneas de tiempo comparativas por región.
 
-### 6. Despliegue Local de Dashboards (Importante)
+### 5. Despliegue Local de Dashboards (Importante)
 
 Para que los dashboards (`dashboard.html` y `dashboard_enhanced.html`) funcionen correctamente y puedan cargar los datos JSON, **es necesario ejecutarlos a través de un servidor web local** (debido a políticas de seguridad CORS de los navegadores).
 
@@ -147,7 +132,6 @@ No te preocupes, Python incluye uno por defecto. Sigue estos pasos:
 3. Abre tu navegador y ve a las siguientes direcciones:
     * **Dashboard Básico:** [http://localhost:8000/notebooks/dashboard.html](http://localhost:8000/notebooks/dashboard.html)
     * **Dashboard Optimizado:** [http://localhost:8000/notebooks/dashboard_enhanced.html](http://localhost:8000/notebooks/dashboard_enhanced.html)
-    * **Predicción Standalone:** [http://localhost:8000/notebooks/prediction_standalone.html](http://localhost:8000/notebooks/prediction_standalone.html)
 
 > **Nota:** Si solo abres los archivos con doble clic (file://...), es posible que no carguen los datos correctamente.
 
