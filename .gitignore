@@ -64,3 +64,8 @@ derby.log
 *.tsv
 *.xlsx
 *.xls
+
+# Spark output markers and stray copies
+*.crc
+_SUCCESS
+/dashboard_data.json

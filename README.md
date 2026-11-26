@@ -19,11 +19,16 @@ El sistema integra un pipeline de datos robusto, análisis exploratorio avanzado
   * Valores reales vs. predichos por región (2022-2023) y proyecciones del modelo para 2024-2025.
   * El modelo predice el total anual por región; no usa clima, hora ni fecha exacta.
 
+## 📊 Datos
+
+* **Fuente:** Anuarios Estadísticos de la Policía Nacional del Perú (PNP), según indica cada hoja del Excel original (`data/raw/PERU. SINIESTROS DE TRANSITO POR AÑO 2008-2023.xlsx`). Son datos públicos y agregados: no contienen datos personales.
+* Las tablas normalizadas están en `data/processed/`. Un test vuelve a correr el ETL sobre el Excel y comprueba que el resultado sea igual al Parquet publicado.
+
 ## 📂 Estructura del Proyecto
 
 ```text
 tesis-prevencion-siniestros-transito/
-├── data/                   # Datos crudos y procesados (no incluidos en el repo)
+├── data/                   # Excel original (data/raw) y tablas normalizadas CSV/Parquet (data/processed)
 ├── notebooks/              # Jupyter Notebooks para análisis y ML
 │   ├── normalizacion_nb.ipynb  # Limpieza y generación de tablas Gold/Silver
 │   ├── prevencion_sinisestros_nb.ipynb # Entrenamiento (PySpark: GLM, RF, GBT), validación y proyecciones 2024-2025
@@ -37,7 +42,6 @@ tesis-prevencion-siniestros-transito/
 │   └── tesis_prevencion_siniestros_transito/
 │       └── normalize.py    # Lógica de normalización ETL
 ├── tests/                  # Pruebas unitarias
-├── reports/                # Reportes de calidad de datos
 ├── requirements.txt        # Dependencias del proyecto
 └── README.md               # Documentación del proyecto
 ```
@@ -137,8 +141,8 @@ No te preocupes, Python incluye uno por defecto. Sigue estos pasos:
 
 ## 📊 Calidad de Datos
 
-El proyecto incluye verificaciones automáticas de calidad de datos. Los reportes se generan en `reports/data_quality_report.json` tras ejecutar los notebooks de procesamiento.
+El proyecto incluye verificaciones automáticas de calidad de datos. Los reportes se generan en `notebooks/reports/data_quality_report.json` tras ejecutar los notebooks de procesamiento.
 
 ## 📄 Licencia
 
-Este proyecto es parte de una investigación académica.
+Código bajo licencia MIT (ver `LICENSE`). Este proyecto es parte de una investigación académica.
