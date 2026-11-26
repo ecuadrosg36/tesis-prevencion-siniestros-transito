@@ -26,7 +26,7 @@ tesis-prevencion-siniestros-transito/
 ├── data/                   # Datos crudos y procesados (no incluidos en el repo)
 ├── notebooks/              # Jupyter Notebooks para análisis y ML
 │   ├── normalizacion_nb.ipynb  # Limpieza y generación de tablas Gold/Silver
-│   ├── prediction_nb.ipynb     # Entrenamiento del modelo y evaluación
+│   ├── prevencion_sinisestros_nb.ipynb # Entrenamiento (PySpark: GLM, RF, GBT), validación y proyecciones 2024-2025
 │   ├── dashboard.html          # Dashboard básico (lee dashboard_data.json)
 │   └── dashboard_enhanced.html # Dashboard con gráficos Plotly
 ├── scripts/                # Scripts de utilidad (normalización, pivoteo, verificación)
@@ -85,14 +85,14 @@ tpst-normalizar "data/raw/PERU. SINIESTROS DE TRANSITO POR AÑO 2008-2023.xlsx" 
 ### 2. Análisis y Entrenamiento (Notebooks)
 
 * Ejecuta `notebooks/normalizacion_nb.ipynb` para realizar la limpieza profunda y generar las tablas analíticas (Silver/Gold).
-* Ejecuta `notebooks/prediction_nb.ipynb` para entrenar el modelo predictivo y evaluar su desempeño.
+* Ejecuta `notebooks/prevencion_sinisestros_nb.ipynb` para entrenar el modelo predictivo, evaluarlo y generar las proyecciones.
 
 ### 3. Dashboard de Resultados
 
 Para visualizar el rendimiento del modelo y las proyecciones futuras:
 
 1. **Generar datos del dashboard:**
-    Asegúrate de haber ejecutado el notebook de predicción (`prediction_nb.ipynb`) para generar los modelos. Luego ejecuta:
+    Asegúrate de haber ejecutado el notebook de entrenamiento (`prevencion_sinisestros_nb.ipynb`) para generar las predicciones en `notebooks/models/`. Luego ejecuta:
 
     ```bash
     python notebooks/prepare_dashboard_data.py
